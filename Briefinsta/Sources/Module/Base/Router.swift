@@ -9,10 +9,7 @@
 import UIKit
 
 enum Router {
-  enum Repositories {
-//    case editSetting(_: ServiceSetting, completion: (ServiceSetting)->())
-//    case repository(url: URL)
-    case main()
-    case alert(title: String, message: String)
+  enum Main {
+    case editAccount
   }
 }

@@ -8,7 +8,20 @@
 
 import UIKit
 
+protocol MainViewProtocol: class {
+  // Presenter -> View
+  func startNetworking()
+  func stopNetworking()
+}
+
 final class MainViewController: BaseViewController {
+  
+  // MARK: Metric
+  
+  // MARK: Properties
+  
+  var presenter: MainPresenterProtocol!
+  
   
   // MARK: View Life Cycle
   
@@ -21,6 +34,21 @@ final class MainViewController: BaseViewController {
   }
   
   override func setupBinding() {
+    
+  }
+  
+}
+
+
+// MARK: - MainViewProtocol
+
+extension MainViewController: MainViewProtocol {
+  
+  func startNetworking() {
+    
+  }
+  
+  func stopNetworking() {
     
   }
   
