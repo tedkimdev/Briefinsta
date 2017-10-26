@@ -40,4 +40,5 @@ class BaseWireframe {
       fatalError("Neither modal nor navigation! Can't navigate back from \(view)")
     }
   }
+  
 }

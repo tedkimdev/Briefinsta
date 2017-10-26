@@ -32,6 +32,9 @@
 		BDD201C01FA126FB00C0A624 /* InstagramService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201BF1FA126FB00C0A624 /* InstagramService.swift */; };
 		BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D591FA18199002C7C50 /* InstagramMedia.swift */; };
 		BDE57D5C1FA19088002C7C50 /* ServiceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */; };
+		BDE57D5E1FA261E8002C7C50 /* SettingViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D5D1FA261E8002C7C50 /* SettingViewSection.swift */; };
+		BDE57D611FA26795002C7C50 /* SettingViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D601FA26795002C7C50 /* SettingViewHeader.swift */; };
+		BDE57D631FA2683F002C7C50 /* UIColor+Briefinsta.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D621FA2683F002C7C50 /* UIColor+Briefinsta.swift */; };
 		BDF968231FA1567700CCF2FE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF968221FA1567700CCF2FE /* Settings.swift */; };
 		BDF968251FA1626500CCF2FE /* SettingViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */; };
 		E4FDFD8848E5A1DF2B382DBF /* Pods_BriefinstaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D70BD5C4156914E1E49C13 /* Pods_BriefinstaUITests.framework */; };
@@ -93,6 +96,9 @@
 		BDD201BF1FA126FB00C0A624 /* InstagramService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramService.swift; sourceTree = "<group>"; };
 		BDE57D591FA18199002C7C50 /* InstagramMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramMedia.swift; sourceTree = "<group>"; };
 		BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResult.swift; sourceTree = "<group>"; };
+		BDE57D5D1FA261E8002C7C50 /* SettingViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewSection.swift; sourceTree = "<group>"; };
+		BDE57D601FA26795002C7C50 /* SettingViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewHeader.swift; sourceTree = "<group>"; };
+		BDE57D621FA2683F002C7C50 /* UIColor+Briefinsta.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Briefinsta.swift"; sourceTree = "<group>"; };
 		BDF968221FA1567700CCF2FE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -208,6 +214,7 @@
 				BDCE25C71FA0287F00ED091F /* AppDelegate.swift */,
 				BD75254E1FA04C8700403796 /* AppWireframe.swift */,
 				BDCE25C91FA0287F00ED091F /* Module */,
+				BDE57D5F1FA26280002C7C50 /* Sections */,
 				BDCE25C81FA0287F00ED091F /* Models */,
 				BDCE25CE1FA0288000ED091F /* Networking */,
 				BDCE25CF1FA0288000ED091F /* Services */,
@@ -281,6 +288,7 @@
 				BDD201B91FA068C300C0A624 /* SettingPresenter.swift */,
 				BDD201BB1FA068D300C0A624 /* SettingInteractor.swift */,
 				BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */,
+				BDE57D601FA26795002C7C50 /* SettingViewHeader.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -306,9 +314,19 @@
 		BDD201B01FA0618A00C0A624 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				BDE57D621FA2683F002C7C50 /* UIColor+Briefinsta.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
+		};
+		BDE57D5F1FA26280002C7C50 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				BDE57D5D1FA261E8002C7C50 /* SettingViewSection.swift */,
+			);
+			name = Sections;
+			path = Briefinsta/Sources/Sections;
+			sourceTree = SOURCE_ROOT;
 		};
 		CEDB0AA186C3314D4A2E046A /* Pods */ = {
 			isa = PBXGroup;
@@ -333,7 +351,9 @@
 				7A4F62D50C2137C92F173998 /* [CP] Check Pods Manifest.lock */,
 				BDCE25881FA0284900ED091F /* Sources */,
 				BDCE25891FA0284900ED091F /* Frameworks */,
+				E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */,
 				BDCE258A1FA0284900ED091F /* Resources */,
+				6F09AC68488332B30709BADD /* [Carte] Post Script */,
 				4E016007FC98898BF9820F2B /* [CP] Embed Pods Frameworks */,
 				25062CFE3F4AD0E990F3AB7D /* [CP] Copy Pods Resources */,
 			);
@@ -353,7 +373,9 @@
 				78CB9F9EF0D386C782B82AB0 /* [CP] Check Pods Manifest.lock */,
 				BDCE259C1FA0284900ED091F /* Sources */,
 				BDCE259D1FA0284900ED091F /* Frameworks */,
+				E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */,
 				BDCE259E1FA0284900ED091F /* Resources */,
+				6F09AC68488332B30709BADD /* [Carte] Post Script */,
 				10BE078BC1E29AEA65759B2B /* [CP] Embed Pods Frameworks */,
 				8294876629E5642B32248A7F /* [CP] Copy Pods Resources */,
 			);
@@ -374,7 +396,9 @@
 				A305E51C0E5E7915F1D64CF2 /* [CP] Check Pods Manifest.lock */,
 				BDCE25A71FA0284900ED091F /* Sources */,
 				BDCE25A81FA0284900ED091F /* Frameworks */,
+				E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */,
 				BDCE25A91FA0284900ED091F /* Resources */,
+				6F09AC68488332B30709BADD /* [Carte] Post Script */,
 				DD71663C29E954AADC4B095A /* [CP] Embed Pods Frameworks */,
 				56E322A1269865D3D2BA4948 /* [CP] Copy Pods Resources */,
 			);
@@ -521,6 +545,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BriefinstaUITests/Pods-BriefinstaUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		6F09AC68488332B30709BADD /* [Carte] Post Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[Carte] Post Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SHELL -i -c \"ruby ${PODS_ROOT}/Carte/Sources/Carte/carte.rb post\"";
+			showEnvVarsInLog = 0;
+		};
 		78CB9F9EF0D386C782B82AB0 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -596,6 +635,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BriefinstaUITests/Pods-BriefinstaUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E62EED9B3D667B480F11A2F0 /* [Carte] Pre Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[Carte] Pre Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$SHELL -i -c \"ruby ${PODS_ROOT}/Carte/Sources/Carte/carte.rb pre\"";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -604,9 +658,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				BD75253B1FA029FF00403796 /* BasePresenter.swift in Sources */,
+				BDE57D5E1FA261E8002C7C50 /* SettingViewSection.swift in Sources */,
 				BD7525531FA04C9800403796 /* TransitionType.swift in Sources */,
 				BDF968231FA1567700CCF2FE /* Settings.swift in Sources */,
 				BDCE25D51FA0288000ED091F /* AppDelegate.swift in Sources */,
+				BDE57D611FA26795002C7C50 /* SettingViewHeader.swift in Sources */,
 				BDD201BC1FA068D300C0A624 /* SettingInteractor.swift in Sources */,
 				BDD201B81FA068BC00C0A624 /* SettingViewController.swift in Sources */,
 				BDD201B21FA0631100C0A624 /* MainInteractor.swift in Sources */,
@@ -619,6 +675,7 @@
 				BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */,
 				BDD201AF1FA05F3D00C0A624 /* MainWireframe.swift in Sources */,
 				BD7525541FA04C9800403796 /* Wireframe.swift in Sources */,
+				BDE57D631FA2683F002C7C50 /* UIColor+Briefinsta.swift in Sources */,
 				BD7525391FA029F400403796 /* BaseViewController.swift in Sources */,
 				BDD201B41FA0631A00C0A624 /* MainPresenter.swift in Sources */,
 				BDE57D5C1FA19088002C7C50 /* ServiceResult.swift in Sources */,

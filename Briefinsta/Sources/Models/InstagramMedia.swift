@@ -65,8 +65,10 @@ extension InstagramMedium {
 
 struct InstagramMedia: Decodable {
   let items: [InstagramMedium]
+  let moreAvailable: Bool
   enum CodingKeys: String, CodingKey {
     case items = "items"
+    case moreAvailable = "more_available"
   }
 }
 

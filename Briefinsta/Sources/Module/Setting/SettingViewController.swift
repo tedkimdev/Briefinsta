@@ -16,10 +16,11 @@ protocol SettingViewProtocol: class {
 
 final class SettingViewController: BaseViewController {
   
-  // MARK: Metric
+  // MARK: Constants
   
-  private struct Metric {
-    
+  fileprivate struct Metric {
+    static let headerHeight: CGFloat = 50.0
+    static let rowHeight: CGFloat = 40.0
   }
   
   
@@ -47,12 +48,15 @@ final class SettingViewController: BaseViewController {
   }
   
   override func setupUI() {
+    self.navigationItem.largeTitleDisplayMode = .always
     self.navigationItem.title = "Setting"
     
     self.tableView.tableFooterView = UIView()
-    self.tableView.backgroundColor = UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0)
-    
+    self.view.backgroundColor = .bi_headerBackground
+    self.tableView.backgroundColor = .bi_headerBackground//UIColor(red: 250/255, green: 250/255, blue: 250/255, alpha: 1.0)
+    self.tableView.register(SettingViewHeader.self, forCellReuseIdentifier: "SettingViewHeader")
     self.tableView.register(SettingViewTableCell.self, forCellReuseIdentifier: "SettingViewTableCell")
+//    self.tableView.isScrollEnabled = false
     
     self.view.addSubview(self.tableView)
   }
@@ -83,9 +87,19 @@ extension SettingViewController: SettingViewProtocol {
 // MARK: - UITableViewDelegate
 
 extension SettingViewController: UITableViewDelegate {
+  
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("\(indexPath.row)")
+    tableView.deselectRow(at: indexPath, animated: false)
+    self.presenter.didSelectTableViewRowAt(indexPath: indexPath)
   }
+  
+  func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    if section == 2 {
+      return 0.0
+    }
+    return Metric.headerHeight
+  }
+  
 }
 
 
@@ -94,16 +108,22 @@ extension SettingViewController: UITableViewDelegate {
 extension SettingViewController: UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 3
+    return self.presenter.numberOfSections()
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 5
+    return self.presenter.numberOfRows(in: section)
+  }
+  
+  func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    let header = tableView.dequeueReusableCell(withIdentifier: "SettingViewHeader") as! SettingViewHeader
+    self.presenter.configureHeader(header, in: section)
+    return header
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "SettingViewTableCell", for: indexPath) as! SettingViewTableCell
-    
+    self.presenter.configurecell(cell, for: indexPath)
     return cell
   }
   

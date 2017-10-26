@@ -7,6 +7,9 @@
 //
 
 import Foundation
+import SafariServices
+
+import Carte
 
 protocol SettingWireframeProtocol: class {
   // Presenter -> Wireframe
@@ -28,9 +31,16 @@ final class SettingWireframe: BaseWireframe {
     return view
   }
   
-  private func showOtherView() {
-    //    let oterViewController = OtherViewController()
-    //    self.show(otherView, with: .push)
+  private func showIcon8(by url: URL, from: SettingViewProtocol) {
+    let safariViewController = SFSafariViewController(url: url)
+    self.show(safariViewController,
+              with: .present(from: from as! UIViewController),
+              animated: true)
+  }
+  
+  private func showOpenSourceList() {
+    let carteViewController = CarteViewController()
+    self.show(carteViewController, with: .push)
   }
   
 }
@@ -39,10 +49,14 @@ final class SettingWireframe: BaseWireframe {
 // MARK: - MainWireframeProtocol
 
 extension SettingWireframe: SettingWireframeProtocol {
+  
   func navigate(to route: Router.Setting) {
     switch route {
-    case .editAccount:
-      print("go other page")
+    case let .icons8(url: url, from: viewController):
+      self.showIcon8(by: url, from: viewController)
+    case .openSourceLicenses:
+      self.showOpenSourceList()
     }
   }
+  
 }
