@@ -12,4 +12,8 @@ enum Router {
   enum Main {
     case editAccount
   }
+  
+  enum Setting {
+    case editAccount
+  }
 }

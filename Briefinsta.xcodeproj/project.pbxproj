@@ -24,6 +24,16 @@
 		BDD201AF1FA05F3D00C0A624 /* MainWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201AE1FA05F3D00C0A624 /* MainWireframe.swift */; };
 		BDD201B21FA0631100C0A624 /* MainInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201B11FA0631100C0A624 /* MainInteractor.swift */; };
 		BDD201B41FA0631A00C0A624 /* MainPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201B31FA0631A00C0A624 /* MainPresenter.swift */; };
+		BDD201B61FA068B400C0A624 /* SettingWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201B51FA068B400C0A624 /* SettingWireframe.swift */; };
+		BDD201B81FA068BC00C0A624 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201B71FA068BC00C0A624 /* SettingViewController.swift */; };
+		BDD201BA1FA068C300C0A624 /* SettingPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201B91FA068C300C0A624 /* SettingPresenter.swift */; };
+		BDD201BC1FA068D300C0A624 /* SettingInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201BB1FA068D300C0A624 /* SettingInteractor.swift */; };
+		BDD201BE1FA1230700C0A624 /* InstagramAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201BD1FA1230700C0A624 /* InstagramAPI.swift */; };
+		BDD201C01FA126FB00C0A624 /* InstagramService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201BF1FA126FB00C0A624 /* InstagramService.swift */; };
+		BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D591FA18199002C7C50 /* InstagramMedia.swift */; };
+		BDE57D5C1FA19088002C7C50 /* ServiceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */; };
+		BDF968231FA1567700CCF2FE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF968221FA1567700CCF2FE /* Settings.swift */; };
+		BDF968251FA1626500CCF2FE /* SettingViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */; };
 		E4FDFD8848E5A1DF2B382DBF /* Pods_BriefinstaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D70BD5C4156914E1E49C13 /* Pods_BriefinstaUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -75,6 +85,16 @@
 		BDD201AE1FA05F3D00C0A624 /* MainWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainWireframe.swift; sourceTree = "<group>"; };
 		BDD201B11FA0631100C0A624 /* MainInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainInteractor.swift; sourceTree = "<group>"; };
 		BDD201B31FA0631A00C0A624 /* MainPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainPresenter.swift; sourceTree = "<group>"; };
+		BDD201B51FA068B400C0A624 /* SettingWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingWireframe.swift; sourceTree = "<group>"; };
+		BDD201B71FA068BC00C0A624 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		BDD201B91FA068C300C0A624 /* SettingPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingPresenter.swift; sourceTree = "<group>"; };
+		BDD201BB1FA068D300C0A624 /* SettingInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingInteractor.swift; sourceTree = "<group>"; };
+		BDD201BD1FA1230700C0A624 /* InstagramAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramAPI.swift; sourceTree = "<group>"; };
+		BDD201BF1FA126FB00C0A624 /* InstagramService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramService.swift; sourceTree = "<group>"; };
+		BDE57D591FA18199002C7C50 /* InstagramMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramMedia.swift; sourceTree = "<group>"; };
+		BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResult.swift; sourceTree = "<group>"; };
+		BDF968221FA1567700CCF2FE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,6 +226,7 @@
 		BDCE25C81FA0287F00ED091F /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BDE57D591FA18199002C7C50 /* InstagramMedia.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -255,6 +276,11 @@
 		BDCE25CD1FA0288000ED091F /* Setting */ = {
 			isa = PBXGroup;
 			children = (
+				BDD201B51FA068B400C0A624 /* SettingWireframe.swift */,
+				BDD201B71FA068BC00C0A624 /* SettingViewController.swift */,
+				BDD201B91FA068C300C0A624 /* SettingPresenter.swift */,
+				BDD201BB1FA068D300C0A624 /* SettingInteractor.swift */,
+				BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -262,6 +288,7 @@
 		BDCE25CE1FA0288000ED091F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				BDD201BD1FA1230700C0A624 /* InstagramAPI.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -269,6 +296,9 @@
 		BDCE25CF1FA0288000ED091F /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */,
+				BDD201BF1FA126FB00C0A624 /* InstagramService.swift */,
+				BDF968221FA1567700CCF2FE /* Settings.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -575,13 +605,23 @@
 			files = (
 				BD75253B1FA029FF00403796 /* BasePresenter.swift in Sources */,
 				BD7525531FA04C9800403796 /* TransitionType.swift in Sources */,
+				BDF968231FA1567700CCF2FE /* Settings.swift in Sources */,
 				BDCE25D51FA0288000ED091F /* AppDelegate.swift in Sources */,
+				BDD201BC1FA068D300C0A624 /* SettingInteractor.swift in Sources */,
+				BDD201B81FA068BC00C0A624 /* SettingViewController.swift in Sources */,
 				BDD201B21FA0631100C0A624 /* MainInteractor.swift in Sources */,
 				BD7525551FA04C9800403796 /* Router.swift in Sources */,
+				BDD201B61FA068B400C0A624 /* SettingWireframe.swift in Sources */,
+				BDD201BE1FA1230700C0A624 /* InstagramAPI.swift in Sources */,
+				BDF968251FA1626500CCF2FE /* SettingViewTableCell.swift in Sources */,
+				BDD201BA1FA068C300C0A624 /* SettingPresenter.swift in Sources */,
+				BDD201C01FA126FB00C0A624 /* InstagramService.swift in Sources */,
+				BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */,
 				BDD201AF1FA05F3D00C0A624 /* MainWireframe.swift in Sources */,
 				BD7525541FA04C9800403796 /* Wireframe.swift in Sources */,
 				BD7525391FA029F400403796 /* BaseViewController.swift in Sources */,
 				BDD201B41FA0631A00C0A624 /* MainPresenter.swift in Sources */,
+				BDE57D5C1FA19088002C7C50 /* ServiceResult.swift in Sources */,
 				BD75254F1FA04C8700403796 /* AppWireframe.swift in Sources */,
 				BD75253D1FA02A3500403796 /* MainViewController.swift in Sources */,
 			);

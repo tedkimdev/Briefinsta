@@ -18,7 +18,7 @@ final class MainWireframe: BaseWireframe {
   static func createModule() -> MainViewController {
     let view = MainViewController()
     let wireframe = MainWireframe()
-//    let interactor = MainInteractor(service: service, serviceSetting: serviceSetting)
+//    let interactor = MainInteractor(service: service, serviceMain: serviceMain)
 //    let presenter = MainPresenter(view: view, wireframe: wireframe, interactor: interactor)
     
 //    view.presenter = presenter

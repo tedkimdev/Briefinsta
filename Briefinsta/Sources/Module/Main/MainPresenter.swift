@@ -72,4 +72,3 @@ extension MainPresenter: MainPresenterProtocol {
 extension MainPresenter: MainInteractorOutputProtocol {
   
 }
-
