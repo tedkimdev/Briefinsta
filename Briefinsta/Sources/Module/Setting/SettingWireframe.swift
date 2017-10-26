@@ -43,6 +43,10 @@ final class SettingWireframe: BaseWireframe {
     self.show(carteViewController, with: .push)
   }
   
+  private func showAlert() {
+    
+  }
+  
 }
 
 
@@ -56,6 +60,8 @@ extension SettingWireframe: SettingWireframeProtocol {
       self.showIcon8(by: url, from: viewController)
     case .openSourceLicenses:
       self.showOpenSourceList()
+    case .editAccount:
+      self.showAlert()
     }
   }
   
