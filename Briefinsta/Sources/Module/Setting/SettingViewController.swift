@@ -123,7 +123,7 @@ extension SettingViewController: UITableViewDataSource {
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "SettingViewTableCell", for: indexPath) as! SettingViewTableCell
-    self.presenter.configurecell(cell, for: indexPath)
+    self.presenter.configureCell(cell, for: indexPath)
     return cell
   }
   

@@ -10,7 +10,7 @@ import Moya
 
 protocol InstagramServiceType {
   func user(with username: String, completion: @escaping (Result<[InstagramMedium]>) -> () )
-  func meida(with username: String, offset: Int?, completion: @escaping (Result<InstagramMedia>) -> () )
+  func meida(with username: String, offset: String?, completion: @escaping (Result<InstagramMedia>) -> () )
 }
 
 final class InstagramService: InstagramServiceType {
@@ -46,7 +46,7 @@ final class InstagramService: InstagramServiceType {
     }
   }
   
-  func meida(with username: String, offset: Int?, completion: @escaping (Result<InstagramMedia>) -> () ) {
+  func meida(with username: String, offset: String?, completion: @escaping (Result<InstagramMedia>) -> () ) {
     provider.request(.user(username: username)) { result in
       switch result {
       case let .success(response):

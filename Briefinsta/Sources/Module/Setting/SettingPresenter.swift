@@ -17,7 +17,7 @@ protocol SettingPresenterProtocol: class, BasePresenterProtocol {
   func numberOfRows(in section: Int) -> Int
   func didSelectTableViewRowAt(indexPath: IndexPath)
   func configureHeader(_ cell: SettingHeaderType, in section: Int)
-  func configurecell(_ cell: SettingViewTableCellType, for indexPath: IndexPath)
+  func configureCell(_ cell: SettingViewTableCellType, for indexPath: IndexPath)
   
   // Navigation
   func editAccount()
@@ -69,7 +69,6 @@ extension SettingPresenter: SettingPresenterProtocol {
   
   func onViewDidLoad() {
     print("Presenter.onViewDidLoad")
-    
   }
   
   func reloadData() {
@@ -93,16 +92,37 @@ extension SettingPresenter: SettingPresenterProtocol {
     switch self.sections[indexPath.section].items[indexPath.row] {
     case .icons:
       guard let url = URL(string: "https://icons8.com") else { return }
-      self.wireframe.navigate(to: .icons8(url: url, from: self.view))
+      self.wireframe.navigate(to: .icons8(url: url))
 
     case .openSource:
       self.wireframe.navigate(to: .openSourceLicenses)
 
     case .account:
-      self.interactor.validateAccount(with: "chchoitoi")
+      self.wireframe.navigate(to: .editAccount)
       
     default:
       print("Presenter.didSelectTableViewRowAt")
+    }
+  }
+  
+  func configureHeader(_ cell: SettingHeaderType, in section: Int) {
+    cell.configure(text: self.sections[section].headerName)
+  }
+  
+  func configureCell(_ cell: SettingViewTableCellType, for indexPath: IndexPath) {
+    switch self.sections[indexPath.section].items[indexPath.row] {
+    case .account:
+      cell.configure(text: "User Account")
+    case .version(let title, _):
+      cell.configure(text: title)
+    case .icons(let title):
+      cell.configure(text: title)
+    case .openSource(let title):
+      cell.configure(text: title)
+    case .logout(let title):
+      cell.configure(text: title)
+    default:
+      cell.configure(text: "test")
     }
   }
   
@@ -126,27 +146,6 @@ extension SettingPresenter: SettingInteractorOutputProtocol {
   func setUsername(_ username: String) {
     self.username = username
     self.view.stopNetworking()
-  }
-  
-  func configureHeader(_ cell: SettingHeaderType, in section: Int) {
-    cell.configure(text: self.sections[section].headerName)
-  }
-  
-  func configurecell(_ cell: SettingViewTableCellType, for indexPath: IndexPath) {
-    switch self.sections[indexPath.section].items[indexPath.row] {
-    case .account:
-      cell.configure(text: "User Account")
-    case .version(let title, _):
-      cell.configure(text: title)
-    case .icons(let title):
-      cell.configure(text: title)
-    case .openSource(let title):
-      cell.configure(text: title)
-    case .logout(let title):
-      cell.configure(text: title)
-    default:
-      cell.configure(text: "test")
-    }
   }
   
 }

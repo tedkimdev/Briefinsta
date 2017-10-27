@@ -14,8 +14,12 @@ enum Router {
   }
   
   enum Setting {
-    case icons8(url: URL, from: SettingViewProtocol)
+    case icons8(url: URL)
     case openSourceLicenses
     case editAccount
+  }
+  
+  enum AddUserAccount {
+    case alert(title: String, message: String)
   }
 }

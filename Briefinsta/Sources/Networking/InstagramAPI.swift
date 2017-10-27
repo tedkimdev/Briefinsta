@@ -12,7 +12,7 @@ import Moya
 
 enum Instagram {
   case user(username: String)
-  case media(username: String, offset: Int?)
+  case media(username: String, offset: String?)
 }
 
 
@@ -43,7 +43,7 @@ extension Instagram: TargetType {
     switch self {
     case let .media(_, offset):
       guard offset != nil else { return nil }
-      return ["max_id": offset ?? 0]
+      return ["max_id": offset ?? ""]
     default:
       return nil
     }

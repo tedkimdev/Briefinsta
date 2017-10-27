@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   private func setupAppWireframe() {
     window = UIWindow(frame: UIScreen.main.bounds)
 //    let mainViewController = MainWireframe.createModule()
-    let settingViewController = SettingWireframe.createModule(instagramService: InstagramService())
+    let settingViewController = SettingWireframe.createModule()
     AppWireframe.shared.setupKeyWindow(window!, viewController: settingViewController)
   }
   
