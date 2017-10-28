@@ -11,8 +11,8 @@ import Foundation
 import Moya
 
 enum Instagram {
-  case user(username: String)
-  case media(username: String, offset: Int?)
+  case user(String)
+  case media(String, String?)
 }
 
 
@@ -25,8 +25,8 @@ extension Instagram: TargetType {
     switch self {
     case .user(let username):
       return "/\(username)/media"
-    case .media(let username, let offset):
-      return "/\(username)/media/\(String(describing: offset))"
+    case .media(let username, _):
+      return "/\(username)/media/"
     }
   }
   
@@ -39,13 +39,12 @@ extension Instagram: TargetType {
     }
   }
   
-  var parameters: [String: Any]? {
+  var parameters: [String: Any] {
     switch self {
     case let .media(_, offset):
-      guard offset != nil else { return nil }
-      return ["max_id": offset ?? 0]
+      return ["max_id": offset ?? ""]
     default:
-      return nil
+      return [:]
     }
   }
   
@@ -53,8 +52,9 @@ extension Instagram: TargetType {
     switch self {
     case .user:
       return .requestPlain
-    case .media:
-      return .requestParameters(parameters: self.parameters!, encoding: URLEncoding.queryString)
+    case .media(_, let offset):
+      guard offset != nil else { return .requestPlain }
+      return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
     }
   }
   
