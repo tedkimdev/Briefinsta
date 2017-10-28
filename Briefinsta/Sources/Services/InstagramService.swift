@@ -27,10 +27,8 @@ final class InstagramService: InstagramServiceType {
     provider.request(.user(username)) { result in
       switch result {
       case let .success(response):
-        let data = response.data // Data, your JSON response is probably in here!
-//        let statusCode = response.statusCode // Int - 200, 401, 500, etc
+        let data = response.data
         do {
-          try response.filterSuccessfulStatusCodes()
           let instagramMedia = try JSONDecoder().decode(InstagramMedia.self, from: data)
           completion(Result.success(instagramMedia.items))
         }
@@ -49,9 +47,7 @@ final class InstagramService: InstagramServiceType {
       switch result {
       case let .success(response):
         let data = response.data
-        //        let statusCode = response.statusCode // Int - 200, 401, 500, etc
         do {
-          try response.filterSuccessfulStatusCodes()
           let instagramMedia = try JSONDecoder().decode(InstagramMedia.self, from: data)
           completion(Result.success(instagramMedia))
         }
