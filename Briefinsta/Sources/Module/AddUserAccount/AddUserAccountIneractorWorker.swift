@@ -13,9 +13,9 @@ enum AddUserAccountInteractorWorkerError: Error {
 }
 
 struct AddUserAccountInteractorWorkerOutput {
-  let offset: String?        // paging
+  let offset: String?       // paging
   let moreAvailable: Bool?
-  let localCount: Int?    // keeps track of the items limit
+  let localCount: Int?      // keeps track of the items limit
 }
 
 final class AddUserAccountInteractorWorker {
@@ -23,38 +23,33 @@ final class AddUserAccountInteractorWorker {
   // MARK: Properties
   
   weak var iteractor: AddUserAccountInteractorWorkerInputProtocol?
+  private let dataService: DataServiceType
   var media: InstagramMedia
   
   
   // MARK: Worker Life Cycle
   
-  init(media: InstagramMedia) {
+  init(media: InstagramMedia, dataService: DataServiceType) {
     self.media = media
+    self.dataService = dataService
   }
   
-  
-  //Map and store instagramMedia using Mappable and Realm
-  func importFromMedia() throws {
-//    guard let items = self.response["items"] as? [[String: Any]] else {
-//      throw InsightsWorkerError.invalidResponseKeyNotFound("items")
-//    }
-//    AppDataStore.importInstagramMedia(instagramMedia: items)
-    
-    // DB 저장하기,
-    
-    
-    // 저장한 후,
-    try! self.prepareWorkerOutput()
+  /// Interactor call this function to start work
+  func importFromMedia() {
+    self.dataService.insertPosts(instagramMedia: self.media.items) { result in
+      switch result {
+      case .success:
+        self.prepareWorkerOutput()
+      case .failure(let error):
+        self.iteractor?.errorOccured(error)
+      }
+    }
   }
   
   fileprivate func prepareWorkerOutput() {
-//    let status = self.response["status"] as! String
-//    let itemIndex = AppDataStore.getInstagramMediaIndex()
-//    let moreAvailable = self.response["more_available"] as! Bool
-//    let output = InsightsWorkerOutput(status: status, offset: itemIndex.offset, moreAvailable: moreAvailable, localCount: itemIndex.count)
-    
+    let lastPostID = self.media.items.sorted { $0.createdTime > $1.createdTime }.last?.id
     let output = AddUserAccountInteractorWorkerOutput(
-      offset: self.media.items.sorted { $0.createdTime > $1.createdTime }.last?.id,
+      offset: lastPostID,
       moreAvailable: self.media.moreAvailable,
       localCount: self.media.items.count
     )

@@ -21,5 +21,6 @@ enum Router {
   
   enum AddUserAccount {
     case alert(title: String, message: String)
+    case completed(title: String, message: String)
   }
 }

@@ -18,7 +18,11 @@ final class AddUserAccountWireframe: BaseWireframe {
   static func createModule() -> AddUserAccountViewController {
     let view = AddUserAccountViewController()
     let wireframe = AddUserAccountWireframe()
-    let interactor = AddUserAccountInteractor(instagramService: InstagramService(), settings: Settings())
+    let interactor = AddUserAccountInteractor(
+      instagramService: InstagramService(),
+      dataService: DataService(),
+      settings: Settings()
+    )
     let presenter = AddUserAccountPresenter(view: view, wireframe: wireframe, interactor: interactor)
     
     view.presenter = presenter
@@ -46,6 +50,8 @@ extension AddUserAccountWireframe: AddUserAccountWireframeProtocol {
   func navigate(to route: Router.AddUserAccount) {
     switch route {
     case let .alert(title: title, message: message):
+      self.showAlert(title: title, message: message)
+    case .completed(let title, let message):
       self.showAlert(title: title, message: message)
     }
   }

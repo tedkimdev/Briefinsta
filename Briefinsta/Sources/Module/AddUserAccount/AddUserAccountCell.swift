@@ -9,7 +9,7 @@
 import UIKit
 
 protocol AddUserAccountCellType {
-  func configure(text: String)
+  func configure(placeholder: String?)
 }
 
 final class AddUserAccountCell: UITableViewCell {
@@ -34,7 +34,6 @@ final class AddUserAccountCell: UITableViewCell {
   
   let usernameField: UITextField = {
     let textField = UITextField()
-    textField.placeholder = "Username"
     return textField
   }()
   
@@ -62,18 +61,10 @@ final class AddUserAccountCell: UITableViewCell {
   
   // MARK: Configuring
   
-  func configure(text: String) {
+  func configure(placeholder: String?) {
+    guard let placeholder = placeholder else { return }
+    self.usernameField.placeholder = placeholder
   }
-  
-//  override public func setHighlighted(_ highlighted: Bool, animated: Bool) {
-//    super.setHighlighted(highlighted, animated: animated)
-//
-//    if highlighted {
-//      self.backgroundColor = UIColor.bi_settingCellBackground
-//    } else {
-//      self.backgroundColor = .white
-//    }
-//  }
   
   @objc fileprivate func textFieldDidChange(_ textField: UITextField) {
     self.textDidChange?(textField.text)
