@@ -7,3 +7,25 @@
 //
 
 import Foundation
+import UIKit
+
+protocol MainTabBarWireframeProtocol: class {
+  // Presenter -> Wireframe
+}
+
+final class MainTabBarWireframe: BaseWireframe {
+  
+  static func createModule(viewControllers: [UIViewController]) -> MainTabBarViewController {
+    let view = MainTabBarViewController()
+    view.viewControllers = viewControllers
+    return view
+  }
+  
+}
+
+
+// MARK: - MainWireframeProtocol
+
+extension MainTabBarWireframe: MainTabBarWireframeProtocol {
+}
+

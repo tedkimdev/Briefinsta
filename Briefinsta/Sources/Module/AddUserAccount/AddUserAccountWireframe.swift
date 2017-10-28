@@ -15,13 +15,17 @@ protocol AddUserAccountWireframeProtocol: class {
 
 final class AddUserAccountWireframe: BaseWireframe {
   
-  static func createModule() -> AddUserAccountViewController {
+  static func createModule(
+    instagramService: InstagramServiceType,
+    dataService: DataServiceType,
+    settings: Settings
+  ) -> AddUserAccountViewController {
     let view = AddUserAccountViewController()
     let wireframe = AddUserAccountWireframe()
     let interactor = AddUserAccountInteractor(
-      instagramService: InstagramService(),
-      dataService: DataService(),
-      settings: Settings()
+      instagramService: instagramService,
+      dataService: dataService,
+      settings: settings
     )
     let presenter = AddUserAccountPresenter(view: view, wireframe: wireframe, interactor: interactor)
     

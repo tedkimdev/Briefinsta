@@ -27,9 +27,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
   private func setupAppWireframe() {
     window = UIWindow(frame: UIScreen.main.bounds)
-//    let mainViewController = MainWireframe.createModule()
-    let settingViewController = SettingWireframe.createModule()
-    AppWireframe.shared.setupKeyWindow(window!, viewController: settingViewController)
+    
+    let dataService = DataService()
+    let instagramService = InstagramService()
+    let settings = Settings()
+    
+    let topMostViewController = TopMostWireframe.createModule(dataService: dataService)
+    let settingViewController = SettingWireframe.createModule(instagramService: instagramService, dataService: dataService, settings: settings)
+    
+    let mainTabBarController = MainTabBarWireframe.createModule(
+      viewControllers: [
+        topMostViewController,
+        settingViewController,
+      ].map { viewController -> UINavigationController in
+        let navigationController = UINavigationController(rootViewController: viewController)
+        navigationController.navigationBar.prefersLargeTitles = true
+        return navigationController
+      }
+    )
+    AppWireframe.shared.setupKeyWindow(window!, viewController: mainTabBarController)
   }
   
   
@@ -39,7 +55,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     UINavigationBar.appearance().shadowImage = UIImage()
     UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
     UINavigationBar.appearance().tintColor = UIColor.red
-    UITabBar.appearance().tintColor = UIColor.init(red: 233/255, green: 79/255, blue: 97/255, alpha: 1)
+    UITabBar.appearance().tintColor = .green//UIColor.init(red: 233/255, green: 79/255, blue: 97/255, alpha: 1)
   }
 
 }

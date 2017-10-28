@@ -136,6 +136,7 @@ extension AddUserAccountInteractor {
   
   fileprivate func loadStoredMedia() {
     print("Interactor.loadStoredMedia")
+    self.presenter.presentAnalysisCompleted()
     // TODO: loadStoredMedia
     // pass the media to other page by using wireframe
     
@@ -155,7 +156,7 @@ extension AddUserAccountInteractor {
 extension AddUserAccountInteractor: AddUserAccountInteractorWorkerInputProtocol {
   
   func didFinishImporting(_ output: AddUserAccountInteractorWorkerOutput?) {
-    
+    print("AddUserAccountInteractor.didFinishImporting")
     if let moreAvailable = output?.moreAvailable,
       let localCount = output?.localCount,
       moreAvailable && localCount < 100 { //몇개까지로 제한?? 1000? continue

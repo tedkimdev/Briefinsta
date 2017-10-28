@@ -10,9 +10,6 @@ import UIKit
 
 protocol SettingViewProtocol: class {
   // Presenter -> View
-  func startNetworking()
-  func stopNetworking()
-  
 }
 
 final class SettingViewController: BaseViewController {
@@ -40,15 +37,29 @@ final class SettingViewController: BaseViewController {
   }()
   
   
+  // MARK: Initializing
+  
+  init() {
+    super.init(nibName: nil, bundle: nil)
+    self.tabBarItem.image = UIImage(named: "icon-setting")
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     self.presenter.onViewDidLoad()
   }
   
   override func setupUI() {
+    self.title = "2"
+    self.tabBarItem.image = UIImage(named: "icon-setting")
+    
     self.navigationItem.largeTitleDisplayMode = .always
     self.navigationItem.title = "Setting"
     
@@ -73,15 +84,6 @@ final class SettingViewController: BaseViewController {
 // MARK: - SettingViewProtocol
 
 extension SettingViewController: SettingViewProtocol {
-  
-  func startNetworking() {
-    
-  }
-  
-  func stopNetworking() {
-    
-  }
-  
 }
 
 

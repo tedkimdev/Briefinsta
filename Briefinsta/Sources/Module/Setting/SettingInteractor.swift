@@ -19,12 +19,16 @@ final class SettingInteractor {
   
   weak var presenter: SettingInteractorOutputProtocol!
   
+  private let dataService: DataServiceType
   private let settings: Settings
   
-  //  var currentSetting: ServiceSetting
   var accountName: String?
   
-  init(settings: Settings = Settings()) {
+  
+  // MARK: Initializing
+  
+  init(dataService: DataServiceType, settings: Settings = Settings()) {
+    self.dataService = dataService
     self.settings = settings
   }
 }

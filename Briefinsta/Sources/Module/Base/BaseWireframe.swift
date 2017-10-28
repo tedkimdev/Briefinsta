@@ -1,5 +1,5 @@
 //
-//  Wireframe.swift
+//  BaseWireframe.swift
 //  Briefinsta
 //
 //  Created by aney on 2017. 10. 24..

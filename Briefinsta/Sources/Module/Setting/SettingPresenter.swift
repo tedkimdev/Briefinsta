@@ -132,8 +132,6 @@ extension SettingPresenter: SettingInteractorOutputProtocol {
   
   func setUsername(_ username: String) {
     self.username = username
-    self.view.stopNetworking()
   }
   
 }
-
