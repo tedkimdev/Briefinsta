@@ -79,7 +79,7 @@ extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
     self.interactor.validateAccount(with: username)
   }
   func validateUserAccount(with username: String) {
-    self.interactor.validateAccount(with: "chchoitoi")
+    self.interactor.validateAccount(with: "leagueoflegendskorea")
 //    self.interactor.validateAccount(with: username)
   }
   
