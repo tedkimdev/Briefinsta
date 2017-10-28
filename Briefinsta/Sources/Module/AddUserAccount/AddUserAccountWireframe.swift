@@ -43,7 +43,7 @@ final class AddUserAccountWireframe: BaseWireframe {
 }
 
 
-// MARK: - MainWireframeProtocol
+// MARK: - AddUserAccountWireframeProtocol
 
 extension AddUserAccountWireframe: AddUserAccountWireframeProtocol {
   

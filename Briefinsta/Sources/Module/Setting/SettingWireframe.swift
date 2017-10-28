@@ -53,7 +53,7 @@ final class SettingWireframe: BaseWireframe {
 }
 
 
-// MARK: - MainWireframeProtocol
+// MARK: - SettingWireframeProtocol
 
 extension SettingWireframe: SettingWireframeProtocol {
   
