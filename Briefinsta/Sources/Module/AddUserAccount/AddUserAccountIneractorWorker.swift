@@ -13,7 +13,7 @@ enum AddUserAccountInteractorWorkerError: Error {
 }
 
 struct AddUserAccountInteractorWorkerOutput {
-  let offset: Int?        // paging
+  let offset: String?        // paging
   let moreAvailable: Bool?
   let localCount: Int?    // keeps track of the items limit
 }
@@ -39,6 +39,11 @@ final class AddUserAccountInteractorWorker {
 //      throw InsightsWorkerError.invalidResponseKeyNotFound("items")
 //    }
 //    AppDataStore.importInstagramMedia(instagramMedia: items)
+    
+    // DB 저장하기,
+    
+    
+    // 저장한 후,
     try! self.prepareWorkerOutput()
   }
   
@@ -47,7 +52,13 @@ final class AddUserAccountInteractorWorker {
 //    let itemIndex = AppDataStore.getInstagramMediaIndex()
 //    let moreAvailable = self.response["more_available"] as! Bool
 //    let output = InsightsWorkerOutput(status: status, offset: itemIndex.offset, moreAvailable: moreAvailable, localCount: itemIndex.count)
-//    self.iteractor?.didFinishImporting(output)
+    
+    let output = AddUserAccountInteractorWorkerOutput(
+      offset: self.media.items.sorted { $0.createdTime > $1.createdTime }.last?.id,
+      moreAvailable: self.media.moreAvailable,
+      localCount: self.media.items.count
+    )
+    self.iteractor?.didFinishImporting(output)
   }
   
 }

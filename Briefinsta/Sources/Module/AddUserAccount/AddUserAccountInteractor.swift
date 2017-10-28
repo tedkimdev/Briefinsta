@@ -51,13 +51,15 @@ extension AddUserAccountInteractor: AddUserAccountInteractorInputProtocol {
         print(media)
         if media.count > 0  {
           self.settings.setUserAccount(value: username)
+          self.accountName = username
           self.downloadMedia()
         } else {
           self.stopLoading(with: "There is no media")
         }
         
-      case .error(let error):
+      case .failure(let error):
         self.stopLoading(with: error.localizedDescription)
+        print(error)
       }
     }
   }
@@ -89,14 +91,13 @@ extension AddUserAccountInteractor {
           self.loadStoredMedia()
         }
         
-      case .error(let error):
+      case .failure(let error):
         self.loadFetchMediaFailureAlert(error: error)
       }
     }
   }
   
   fileprivate func initAddUserAccountInteractorWorker(with media: InstagramMedia) {
-    print("initAddUserAccountInteractorWorker")
     self.worker = AddUserAccountInteractorWorker(media: media)
     self.worker?.iteractor = self
     DispatchQueue.global(qos: .background).async {
@@ -134,7 +135,16 @@ extension AddUserAccountInteractor {
 extension AddUserAccountInteractor: AddUserAccountInteractorWorkerInputProtocol {
   
   func didFinishImporting(_ output: AddUserAccountInteractorWorkerOutput?) {
-    print("AddUserAccountInteractor.didFinishImporting")
+    
+    if let moreAvailable = output?.moreAvailable,
+      let localCount = output?.localCount,
+      moreAvailable && localCount < 100 { //몇개까지로 제한?? 1000? continue
+      self.performFetchMedia(self.accountName!, offset: output?.offset)
+    } else {  // end
+      DispatchQueue.main.async {
+        self.loadStoredMedia()
+      }
+    }
   }
   
 }

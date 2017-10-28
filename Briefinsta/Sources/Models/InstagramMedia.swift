@@ -17,16 +17,18 @@ struct InstagramMedium: Decodable {
   let likesCount: Int
   let commentsCount: Int
   let engagementCount: Int
+  let createdTime: Date
   let type: String
-
+  
   enum CodingKeys: String, CodingKey {
     case id = "id"
     case code = "code"
     case username = "user"
-    case type = "type"
     case imageURL = "images"
     case likesCount = "likes"
     case commentsCount = "comments"
+    case createdTime = "created_time"
+    case type = "type"
   }
   
   enum LikesCodingKeys: String, CodingKey {
@@ -36,12 +38,27 @@ struct InstagramMedium: Decodable {
     case count = "count"
   }
   
+  static func initInstagramMedium(from entity: InstagramMediumEntity) -> InstagramMedium {
+    return InstagramMedium(
+      id: entity.id,
+      code: entity.code,
+      username: entity.username,
+      imageURL: entity.imageURL,
+      likesCount: entity.likesCount,
+      commentsCount: entity.commentsCount,
+      engagementCount: entity.engagementCount,
+      createdTime: entity.createdTime,
+      type: entity.type
+    )
+  }
+  
 }
+
 
 extension InstagramMedium {
   init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: CodingKeys.self)
-
+    
     let id = try container.decode(String.self, forKey: .id)
     let code = try container.decode(String.self, forKey: .code)
     let user = try container.decode(User.self, forKey: .username)
@@ -54,12 +71,17 @@ extension InstagramMedium {
     let commentsContainer = try container.nestedContainer(keyedBy: CommentsCodingKeys.self, forKey: .commentsCount)
     let commentsCount = try commentsContainer.decode(Int.self, forKey: .count)
     let engagementCount = likesCount + commentsCount
+    
+    let creationDateString = try container.decode(String.self, forKey: .createdTime)
+    let unixTimestamp = Date(timeIntervalSince1970: TimeInterval(creationDateString)!)
+    let createdTime = unixTimestamp
+    
     let type = try container.decode(String.self, forKey: .type)
     
-    self.init(id: id, code: code, username: username, imageURL: imageURL, likesCount: likesCount, commentsCount: commentsCount, engagementCount: engagementCount, type: type)
+    self.init(id: id, code: code, username: username, imageURL: imageURL, likesCount: likesCount, commentsCount: commentsCount, engagementCount: engagementCount, createdTime: createdTime, type: type)
   }
 }
-
+      
 
 // MARK: InstagramMedia
 
@@ -94,6 +116,7 @@ struct Images: Decodable {
     case lowResolutionImage = "low_resolution"
   }
 }
+
 
 struct Image: Decodable {
   let width: Float
