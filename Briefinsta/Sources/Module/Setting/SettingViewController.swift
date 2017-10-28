@@ -12,6 +12,7 @@ protocol SettingViewProtocol: class {
   // Presenter -> View
   func startNetworking()
   func stopNetworking()
+  
 }
 
 final class SettingViewController: BaseViewController {

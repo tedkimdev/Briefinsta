@@ -11,7 +11,7 @@ import Foundation
 enum SettingViewSection {
   case about([SettingsViewSectionItem])
   case account([SettingsViewSectionItem])
-  case logout([SettingsViewSectionItem])
+  case delete([SettingsViewSectionItem])
 }
 
 extension SettingViewSection {
@@ -20,7 +20,7 @@ extension SettingViewSection {
     switch self {
     case .about(let items): return items
     case .account(let items): return items
-    case .logout(let items): return items
+    case .delete(let items): return items
     }
   }
   
@@ -30,7 +30,7 @@ extension SettingViewSection {
       return "Information"
     case .account(_):
       return "User Account"
-    case .logout(_):
+    case .delete(_):
       return ""
     }
   }
@@ -43,5 +43,5 @@ enum SettingsViewSectionItem {
   case icons(String)
   case openSource(String)
   case account
-  case logout(String)
+  case delete(String)
 }

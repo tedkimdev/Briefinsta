@@ -10,7 +10,6 @@ import Foundation
 
 protocol SettingPresenterProtocol: class, BasePresenterProtocol {
   // View -> Presenter
-  func reloadData()
   
   // TableView
   func numberOfSections() -> Int
@@ -20,7 +19,6 @@ protocol SettingPresenterProtocol: class, BasePresenterProtocol {
   func configureCell(_ cell: SettingViewTableCellType, for indexPath: IndexPath)
   
   // Navigation
-  func editAccount()
 }
 
 protocol SettingInteractorOutputProtocol: class {
@@ -55,7 +53,7 @@ final class SettingPresenter {
       .icons("Icons"),
     ])
     let accountSection = SettingViewSection.account([.account])
-    let logoutSection = SettingViewSection.logout([.logout("Logout")])
+    let logoutSection = SettingViewSection.delete([.delete("Delete all data")])
     
     self.sections = [aboutSection] + [accountSection] + [logoutSection]
   }
@@ -70,13 +68,6 @@ extension SettingPresenter: SettingPresenterProtocol {
   func onViewDidLoad() {
     print("Presenter.onViewDidLoad")
   }
-  
-  func reloadData() {
-  }
-  
-  func editAccount() {
-  }
-
   
   // MARK: TableView
   
@@ -99,6 +90,9 @@ extension SettingPresenter: SettingPresenterProtocol {
 
     case .account:
       self.wireframe.navigate(to: .editAccount)
+    case .delete:
+    //TODO: Delete action
+      print("Tapped delete all data!!!")
       
     default:
       print("Presenter.didSelectTableViewRowAt")
@@ -119,7 +113,7 @@ extension SettingPresenter: SettingPresenterProtocol {
       cell.configure(text: title)
     case .openSource(let title):
       cell.configure(text: title)
-    case .logout(let title):
+    case .delete(let title):
       cell.configure(text: title)
     default:
       cell.configure(text: "test")
@@ -128,14 +122,7 @@ extension SettingPresenter: SettingPresenterProtocol {
   
   
   // MARK: Navigation
-  
-  func editSetting() {
-    //    wireframe.navigate(to: .editSetting(interactor.currentSetting, completion: { [weak self] setting in
-    //      guard let `self` = self, self.interactor.currentSetting != setting else { return }
-    //      self.interactor.changeServiceSetting(to: setting)
-    //      self.reloadData()
-    //    }))
-  }
+
 }
 
 
