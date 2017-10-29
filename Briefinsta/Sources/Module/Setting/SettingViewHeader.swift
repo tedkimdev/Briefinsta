@@ -49,7 +49,7 @@ final class SettingViewHeader: UITableViewCell, SettingHeaderType {
     
     self.settingLabel = UILabel()
     self.settingLabel.font = Font.settingLabel
-    self.settingLabel.textColor = 0x5C6774.color
+    self.settingLabel.textColor = .bi_textColor
     self.addSubview(self.settingLabel)
     
     self.settingLabel.snp.makeConstraints { make in

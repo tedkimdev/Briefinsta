@@ -46,7 +46,7 @@ final class TopMostInteractor {
       let bestEngagement = try self.dataService.getBestEngagementPosts(with: 25)
       let mostCommented = try self.dataService.getMostCommentedPosts(with: 25)
       let mostLiked = try self.dataService.getMostLikedPosts(with: 25)
-      let recentPosted = try self.dataService.getLastWeeksPosts(weeks: 12)
+      let recentPosted = try self.dataService.getLastWeeksPosts(weeks: 12) // about 3 months
 
       self.presenter.presentLoadedSection(media:
         [

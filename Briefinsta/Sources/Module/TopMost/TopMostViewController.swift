@@ -19,6 +19,8 @@ final class TopMostViewController: BaseViewController {
   // MARK: Constants
   
   fileprivate struct Metric {
+    static let instagramMediaCellSpacing: CGFloat = 6.0
+    static let instagramMediaCellLabelHeight: CGFloat = UIFont.systemFont(ofSize: 15).lineHeight
   }
   
   
@@ -44,9 +46,6 @@ final class TopMostViewController: BaseViewController {
     self.presenter.onViewDidLoad()
   }
   
-//  override func viewDidAppear(_ animated: Bool) {
-//    <#code#>
-//  }
   
   // MARK: Initializing
   
@@ -74,6 +73,10 @@ final class TopMostViewController: BaseViewController {
     self.tableView.register(TopMostViewCell.self, forCellReuseIdentifier: "TopMostViewCell")
     
     self.view.addSubview(self.tableView)
+    
+    self.tableView.snp.makeConstraints { make in
+      make.edges.equalToSuperview()
+    }
   }
   
   override func setupBinding() {
@@ -100,7 +103,7 @@ extension TopMostViewController: TopMostViewProtocol {
 extension TopMostViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return CGFloat(300.0)
+    return CGFloat(250.0)
   }
   
 }
@@ -133,11 +136,12 @@ extension TopMostViewController: UITableViewDataSource {
 extension TopMostViewController: UICollectionViewDelegateFlowLayout {
  
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    return 4.0
+    return Metric.instagramMediaCellSpacing
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    return CGSize(width: (self.view.bounds.width - 8.0) / 3, height:(self.view.bounds.width - 8.0) / 3 + 50)
+    let cellWidth = (self.view.bounds.width - Metric.instagramMediaCellSpacing * 2) / 3
+    return CGSize(width: cellWidth, height: cellWidth + Metric.instagramMediaCellLabelHeight * 2)
   }
   
 }
