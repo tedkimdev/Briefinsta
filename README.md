@@ -7,7 +7,8 @@ Used architecture
 -----------------
 - VIPER
 
-Credits
+
+Used libraries
 -------
 Moya - was used to make the api service and it's network abstraction layer written in Swift
 
@@ -31,6 +32,7 @@ To Do
 LICENSE
 -------
 MIT license. See [LICENSE](LICENSE) for details.
+
 
 Ref
 ---
