@@ -21,12 +21,23 @@ extension TopMostViewSection {
 }
 
 enum TopMostViewSectionItem {
-  case topMost
-  case likesCount
+  case topMost([InstagramMediaViewModel])
+  case likesCount([InstagramMediaViewModel])
 }
 
-struct InstagramMediaView {
+struct InstagramMediaViewModel {
   let likes: String
   let comments: String
   let imageURL: String
+  
+  init(_ medium: InstagramMedium) {
+    self.likes = String(medium.likesCount)
+    self.comments = String(medium.commentsCount)
+    self.imageURL = medium.imageURL
+  }
+}
+
+struct TopMostViewViewModelSection {
+  let title: String
+  let items: [InstagramMediaViewModel]
 }

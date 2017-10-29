@@ -48,9 +48,13 @@ final class AddUserAccountViewController: BaseViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-//    self.usernameTextfield.becomeFirstResponder()
-//    self.interactor?.loadAccount()
+    // TODO: becomeFirstResponder()
     self.presenter.onViewDidLoad()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = true
   }
   
   override func setupUI() {

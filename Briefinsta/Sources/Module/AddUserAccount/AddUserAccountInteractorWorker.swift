@@ -1,5 +1,5 @@
 //
-//  AddUserAccountIneractorWorker.swift
+//  AddUserAccountInteractorWorker.swift
 //  Briefinsta
 //
 //  Created by aney on 2017. 10. 26..

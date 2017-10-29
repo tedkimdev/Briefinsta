@@ -10,13 +10,24 @@ import Foundation
 
 protocol TopMostPresenterProtocol: class, BasePresenterProtocol {
   // View -> Presenter
+  func onViewDidLoad()
+  
+  // TableView
+  func numberOfSections() -> Int
+  func numberOfRows(in section: Int) -> Int
+  func didSelectTableViewRowAt(indexPath: IndexPath)
+  func configureCell(_ cell: TopMostViewCell, for indexPath: IndexPath)
+  
+  // CollectionView
+  func numberOfItemsInSection(in section: Int) -> Int
+  func configureMediumCell(_ cell: InstagramMediumCell, in section: Int, for indexPath: IndexPath)
 }
 
 
 protocol TopMostInteractorOutputProtocol: class {
   // Interactor -> Presenter
   func presentEmptySection() // no account
-  func presentLoadedSection()
+  func presentLoadedSection(media: [TopMostViewViewModelSection])
   func presentAlertController(with message: String)
 }
 
@@ -29,8 +40,7 @@ final class TopMostPresenter {
   private let wireframe: TopMostWireframeProtocol
   private let interactor: TopMostInteractorInputProtocol
   
-  private var sections: [TopMostViewSection]?
-  
+  private var sections: [TopMostViewViewModelSection]?
   
   // MARK: Initializing
   
@@ -41,13 +51,57 @@ final class TopMostPresenter {
     self.wireframe = wireframe
     self.interactor = interactor
   }
-
+  
+  fileprivate func fetchInstagramMedia() {
+    self.interactor.loadInstagramMedia()
+  }
+  
 }
 
 
 // MARK: - TopMostPresenterProtocol
 
 extension TopMostPresenter: TopMostPresenterProtocol {
+  
+  func onViewDidLoad() {
+    self.fetchInstagramMedia()
+  }
+  
+  func numberOfSections() -> Int {
+    if self.sections != nil {
+      return 1
+    }
+    return 0
+  }
+  
+  func numberOfRows(in section: Int) -> Int {
+    if self.sections != nil {
+      return self.sections?.count ?? 0
+    }
+    return 0
+  }
+  
+  func numberOfItemsInSection(in section: Int) -> Int {
+    if self.sections != nil {
+      return self.sections![section].items.count
+    }
+    return 0
+  }
+  
+  func didSelectTableViewRowAt(indexPath: IndexPath) {
+    
+  }
+  
+  func configureCell(_ cell: TopMostViewCell, for indexPath: IndexPath) {
+    guard let sections = self.sections else { return }
+    cell.configure(title: sections[indexPath.row].title)
+  }
+  
+  func configureMediumCell(_ cell: InstagramMediumCell, in section: Int, for indexPath: IndexPath) {
+    guard let sections = self.sections else { return }
+    cell.configure(viewModel: sections[section].items[indexPath.row])
+  }
+  
 }
 
 
@@ -56,11 +110,18 @@ extension TopMostPresenter: TopMostPresenterProtocol {
 extension TopMostPresenter: TopMostInteractorOutputProtocol {
   
   func presentEmptySection() {
-    print("presentEmptySection")
+    // TODO: Make empty sections
+//    self.sections = media
+    DispatchQueue.main.async {
+      self.view.displayLoadedMedia()
+    }
   }
   
-  func presentLoadedSection() {
-    print("presentLoadedSection")
+  func presentLoadedSection(media: [TopMostViewViewModelSection]) {
+    self.sections = media
+    DispatchQueue.main.async {
+      self.view.displayLoadedMedia()
+    }
   }
   
   func presentAlertController(with message: String) {

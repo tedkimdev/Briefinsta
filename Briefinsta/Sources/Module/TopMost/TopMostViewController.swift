@@ -57,17 +57,17 @@ final class TopMostViewController: BaseViewController {
   }
   
   override func setupUI() {
+    self.navigationController?.navigationBar.isTranslucent = false
     self.navigationItem.largeTitleDisplayMode = .always
     self.navigationItem.title = "Report🦊"
     
     self.view.backgroundColor = .white
     
+    self.tableView.allowsSelection = false
     self.tableView.tableFooterView = UIView()
-    self.view.backgroundColor = .green
+    self.tableView.separatorStyle = .none
     self.tableView.backgroundColor = .white
-    self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-//    self.tableView.register(SettingViewTableCell.self, forCellReuseIdentifier: "SettingViewTableCell")
-    //    self.tableView.isScrollEnabled = false
+    self.tableView.register(TopMostViewCell.self, forCellReuseIdentifier: "TopMostViewCell")
     
     self.view.addSubview(self.tableView)
   }
@@ -85,7 +85,7 @@ final class TopMostViewController: BaseViewController {
 extension TopMostViewController: TopMostViewProtocol {
   
   func displayLoadedMedia() {
-    print("TopMostViewController.displayLoadedMedia")
+    self.tableView.reloadData()
   }
   
 }
@@ -95,6 +95,10 @@ extension TopMostViewController: TopMostViewProtocol {
 
 extension TopMostViewController: UITableViewDelegate {
   
+  func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    return CGFloat(300.0)
+  }
+  
 }
 
 
@@ -103,17 +107,49 @@ extension TopMostViewController: UITableViewDelegate {
 extension TopMostViewController: UITableViewDataSource {
   
   func numberOfSections(in tableView: UITableView) -> Int {
-    return 1
+    return self.presenter.numberOfSections()
   }
   
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return 7
+    return self.presenter.numberOfRows(in: section)
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-    
-    cell.backgroundColor = .green
+    let cell = tableView.dequeueReusableCell(withIdentifier: "TopMostViewCell", for: indexPath) as! TopMostViewCell
+    self.presenter.configureCell(cell, for: indexPath)
+    cell.setCollectionViewDelegateDataSource(delegate: self, dataSource: self, rowAt: indexPath)
+    return cell
+  }
+  
+}
+
+
+// MARK: - TopMostViewCell UICollectionViewDelegate
+
+extension TopMostViewController: UICollectionViewDelegateFlowLayout {
+ 
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    return 4.0
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    return CGSize(width: (self.view.bounds.width - 8.0) / 3, height:(self.view.bounds.width - 8.0) / 3 + 50)
+  }
+  
+}
+
+
+// MARK: - TopMostViewCell UICollectionViewDataSource
+
+extension TopMostViewController: UICollectionViewDataSource {
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    return self.presenter.numberOfItemsInSection(in: section)
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "InstagramMediumCell", for: indexPath) as! InstagramMediumCell
+    self.presenter.configureMediumCell(cell, in: collectionView.tag, for: indexPath)
     
     return cell
   }

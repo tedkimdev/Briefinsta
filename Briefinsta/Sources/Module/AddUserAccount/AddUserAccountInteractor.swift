@@ -139,14 +139,6 @@ extension AddUserAccountInteractor {
     self.presenter.presentAnalysisCompleted()
     // TODO: loadStoredMedia
     // pass the media to other page by using wireframe
-    
-//    let bestEngagement = AppDataStore.getBestEngagement(with: 25)
-//    let lastWeeksPosted = AppDataStore.getLastWeeksPosted(weeks: 12)
-//    let topMostCommented = AppDataStore.getMostLiked(with: 25)
-//    let bestEngagementDictionary: [String: Any] = ["sectionTitle":  AppConfiguration.TableViewSections.zero, "items": bestEngagement]
-//    let mostCommentedDictionary: [String: Any] = ["sectionTitle": AppConfiguration.TableViewSections.one, "items": topMostCommented]
-//    let lastWeeksPostedDictionary: [String: Any] = ["sectionTitle":  AppConfiguration.TableViewSections.two, "items": lastWeeksPosted]
-//    self.presenter?.presentLoadedSections(with: [bestEngagementDictionary,mostCommentedDictionary,lastWeeksPostedDictionary])
   }
 }
 

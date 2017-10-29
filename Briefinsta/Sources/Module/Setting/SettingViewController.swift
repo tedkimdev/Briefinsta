@@ -56,8 +56,12 @@ final class SettingViewController: BaseViewController {
     self.presenter.onViewDidLoad()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = false
+  }
+  
   override func setupUI() {
-    self.title = "2"
     self.tabBarItem.image = UIImage(named: "icon-setting")
     
     self.navigationItem.largeTitleDisplayMode = .always

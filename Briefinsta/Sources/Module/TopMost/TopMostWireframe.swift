@@ -15,10 +15,10 @@ protocol TopMostWireframeProtocol: class {
 
 final class TopMostWireframe: BaseWireframe {
   
-  static func createModule(dataService: DataServiceType) -> TopMostViewController {
+  static func createModule(dataService: DataServiceType, settings: Settings) -> TopMostViewController {
     let view = TopMostViewController()
     let wireframe = TopMostWireframe()
-    let interactor = TopMostInteractor(dataService: dataService)
+    let interactor = TopMostInteractor(dataService: dataService, settings: settings)
     let presenter = TopMostPresenter(view: view, wireframe: wireframe, interactor: interactor)
     
     view.presenter = presenter
