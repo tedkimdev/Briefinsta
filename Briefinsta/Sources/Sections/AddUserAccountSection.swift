@@ -12,6 +12,7 @@ enum AddUserAccountViewSection {
   case editAccount([AddUserAccountsViewSectionItem])
 }
 
+
 extension AddUserAccountViewSection {
   
   var items: [AddUserAccountsViewSectionItem] {
@@ -21,6 +22,7 @@ extension AddUserAccountViewSection {
   }
   
 }
+
 
 enum AddUserAccountsViewSectionItem {
   case editAccount

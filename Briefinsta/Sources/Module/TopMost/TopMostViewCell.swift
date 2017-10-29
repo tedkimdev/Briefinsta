@@ -12,8 +12,20 @@ final class TopMostViewCell: UITableViewCell {
   
   // MARK: Constants
   
+  fileprivate struct Metric {
+    static let dividerLineViewTop: CGFloat = 4.0
+    static let dividerLineViewHeight: CGFloat = 1 / UIScreen.main.scale
+    
+    static let titleLabelTop: CGFloat = 8.0
+    static let titleLabelLeftRight: CGFloat = 16.0
+    static let titleLabelHeight: CGFloat = Font.titleLabel.lineHeight
+    
+    static let collectionViewTop: CGFloat = 0.0
+    static let collectionViewLeftRight: CGFloat = 16.0
+  }
+  
   fileprivate struct Font {
-    static let titleLabel = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.heavy)
+    static let titleLabel = UIFont.systemFont(ofSize: 18, weight: UIFont.Weight.semibold)
   }
   
   
@@ -40,7 +52,7 @@ final class TopMostViewCell: UITableViewCell {
   
   let dividerLineView: UIView = {
     let view = UIView()
-    view.backgroundColor = UIColor(white: 0.4, alpha: 0.4)
+    view.backgroundColor = .bi_lineColor
     view.translatesAutoresizingMaskIntoConstraints = false
     return view
   }()
@@ -67,21 +79,21 @@ final class TopMostViewCell: UITableViewCell {
     self.addSubview(self.titleLabel)
     
     self.dividerLineView.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(4)
+      make.top.equalToSuperview().offset(Metric.dividerLineViewTop)
       make.left.equalToSuperview()
       make.right.equalToSuperview()
-      make.height.equalTo(1 / UIScreen.main.scale)
+      make.height.equalTo(Metric.dividerLineViewHeight)
     }
     self.titleLabel.snp.makeConstraints { make in
-      make.top.equalTo(self.dividerLineView.snp.top).offset(8)
-      make.left.equalToSuperview().offset(20)
-      make.right.equalToSuperview().offset(-20)
-      make.height.equalTo(40)
+      make.top.equalTo(self.dividerLineView.snp.top).offset(Metric.titleLabelTop)
+      make.left.equalToSuperview().offset(Metric.titleLabelLeftRight)
+      make.right.equalToSuperview().offset(-Metric.titleLabelLeftRight)
+      make.height.equalTo(Metric.titleLabelHeight)
     }
     self.collectionView.snp.makeConstraints { make in
-      make.top.equalTo(self.titleLabel.snp.bottom).offset(4)
-      make.left.equalToSuperview().offset(20)
-      make.right.equalToSuperview().offset(-20)
+      make.top.equalTo(self.titleLabel.snp.bottom).offset(Metric.collectionViewTop)
+      make.left.equalToSuperview().offset(Metric.collectionViewLeftRight)
+      make.right.equalToSuperview().offset(-Metric.collectionViewLeftRight)
       make.bottom.equalToSuperview()
     }
   }

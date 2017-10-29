@@ -10,6 +10,27 @@ import UIKit
 
 final class InstagramMediumCell: UICollectionViewCell {
   
+  // MARK: Constants
+  
+  fileprivate struct Metric {
+    static let likeImageViewTop: CGFloat = 6.0
+    static let likeImageViewWidthHeight: CGFloat = 16.0
+    
+    static let likeLabelLeft: CGFloat = 4.0
+    static let likeLabelHeight: CGFloat = 16.0
+    
+    static let commentImageViewTop: CGFloat = 6.0
+    static let commentImageViewWidthHeight: CGFloat = Font.textLabel.lineHeight
+    
+    static let commentLabelLeft: CGFloat = 4.0
+    static let commentLabelHeight: CGFloat = Font.textLabel.lineHeight
+  }
+  
+  fileprivate struct Font {
+    static let textLabel = UIFont.systemFont(ofSize: 15)
+  }
+  
+  
   // MARK: Initializing
   
   override init(frame: CGRect) {
@@ -45,35 +66,52 @@ final class InstagramMediumCell: UICollectionViewCell {
     let image = UIImageView()
     image.contentMode = .scaleAspectFill
     image.layer.masksToBounds = true
-    image.tintColor = .red
-    image.image = UIImage(named: "icon-comment")
+    image.tintColor = .bi_charcoal
+    image.image = UIImage(named: "icon-comment")?.withRenderingMode(.alwaysTemplate)
     return image
   }()
   
-  let likesLabel: UILabel = {
+  let likeLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
+    label.font = Font.textLabel
     return label
   }()
   
-  let commentsLabel: UILabel = {
+  let commentLabel: UILabel = {
     let label = UILabel()
-    label.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
-    label.textColor = UIColor.lightGray
+    label.font = Font.textLabel
+    label.textColor = .bi_slate
     return label
   }()
   
   fileprivate func setupUI() {
     self.addSubview(self.imageView)
     self.addSubview(self.likeImageView)
-    self.addSubview(self.likesLabel)
+    self.addSubview(self.likeLabel)
     self.addSubview(self.commentImageView)
-    self.addSubview(self.commentsLabel)
+    self.addSubview(self.commentLabel)
+    
     self.imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width)
-    self.likeImageView.frame = CGRect(x: 0, y: self.frame.width + 6, width: 16, height: 16)
-    self.likesLabel.frame = CGRect(x: 24, y: self.frame.width + 6, width: self.frame.width, height: 16)
-    self.commentImageView.frame = CGRect(x: 0, y: self.frame.width + 26, width: 16, height: 16)
-    self.commentsLabel.frame = CGRect(x: 24, y: self.frame.width + 26, width: self.frame.width, height: 16)
+    
+    self.likeImageView.frame = CGRect(x: 0,
+                                      y: self.frame.width + Metric.likeImageViewTop,
+                                      width: Metric.likeImageViewWidthHeight,
+                                      height: Metric.likeImageViewWidthHeight)
+    
+    self.likeLabel.frame = CGRect(x: self.likeImageView.right + Metric.likeLabelLeft,
+                                   y: self.likeImageView.top,
+                                   width: self.frame.width - self.likeImageView.right - Metric.likeLabelLeft * 2,
+                                   height: Metric.likeLabelHeight)
+    
+    self.commentImageView.frame = CGRect(x: 0,
+                                         y: self.likeImageView.bottom + Metric.commentImageViewTop,
+                                         width: Metric.commentImageViewWidthHeight,
+                                         height: Metric.commentImageViewWidthHeight)
+    
+    self.commentLabel.frame = CGRect(x: self.commentImageView.right + Metric.commentLabelLeft,
+                                      y: self.commentImageView.top,
+                                      width: self.frame.width - self.commentImageView.right - Metric.commentLabelLeft * 2,
+                                      height: Metric.commentImageViewWidthHeight)
   }
   
   override func prepareForReuse() {
@@ -90,8 +128,8 @@ final class InstagramMediumCell: UICollectionViewCell {
       self.imageView.image = UIImage(named: "placeholder")?.withRenderingMode(.alwaysOriginal)
     }
     
-    self.commentsLabel.text = "\(viewModel.comments)"
-    self.likesLabel.text = "\(viewModel.likes)"
+    self.commentLabel.text = "\(viewModel.comments)"
+    self.likeLabel.text = "\(viewModel.likes)"
   }
   
 }

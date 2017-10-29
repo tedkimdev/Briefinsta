@@ -12,6 +12,7 @@ protocol MainTabBarViewProtocol: class {
   // Presenter -> View
 }
 
+
 final class MainTabBarViewController: UITabBarController {
   
   // MARK: Metric

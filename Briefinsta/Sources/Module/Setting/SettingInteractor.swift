@@ -34,7 +34,14 @@ final class SettingInteractor {
   init(dataService: DataServiceType, settings: Settings = Settings()) {
     self.dataService = dataService
     self.settings = settings
+  
+    NotificationCenter.default.addObserver(self, selector: #selector(currentUserAccount), name: Notification.Name(rawValue:"analysisCompleted"), object: nil)
   }
+
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
 }
 
 
@@ -42,7 +49,7 @@ final class SettingInteractor {
 
 extension SettingInteractor: SettingInteractorInputProtocol {
   
-  func currentUserAccount() {
+  @objc func currentUserAccount() {
     self.presenter.setUsername(self.settings.getUserAccount())
   }
   
@@ -61,6 +68,8 @@ extension SettingInteractor: SettingInteractorInputProtocol {
       switch result {
       case .success:
         self.presenter.presentDeletedData(message: "Deleted all data.")
+        NotificationCenter.default.post(name: Notification.Name(rawValue:"allDataDeleted"), object: nil)
+      
       case .failure(let error):
         self.presenter.presentAlertController(message: error.localizedDescription)
       }

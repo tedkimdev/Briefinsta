@@ -12,6 +12,7 @@ protocol AddUserAccountCellType {
   func configure(placeholder: String?)
 }
 
+
 final class AddUserAccountCell: UITableViewCell {
   
   // MARK: Constants

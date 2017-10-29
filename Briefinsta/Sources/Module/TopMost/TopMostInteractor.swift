@@ -1,5 +1,5 @@
 //
-//  TopMostInterActor.swift
+//  TopMostInteractor.swift
 //  Briefinsta
 //
 //  Created by aney on 2017. 10. 28..
@@ -31,14 +31,22 @@ final class TopMostInteractor {
   init(dataService: DataServiceType, settings: Settings) {
     self.dataService = dataService
     self.settings = settings
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(loadStoredData), name: Notification.Name(rawValue:"analysisCompleted"), object: nil)
+    
+    NotificationCenter.default.addObserver(self, selector: #selector(loadInstagramMedia), name: Notification.Name(rawValue:"allDataDeleted"), object: nil)
   }
   
-  fileprivate func loadStoredData() {
+  deinit {
+    NotificationCenter.default.removeObserver(self)
+  }
+  
+  @objc fileprivate func loadStoredData() {
     do {
       let bestEngagement = try self.dataService.getBestEngagementPosts(with: 25)
       let mostCommented = try self.dataService.getMostCommentedPosts(with: 25)
       let mostLiked = try self.dataService.getMostLikedPosts(with: 25)
-      let recentPosted = try self.dataService.getLastWeeksPosts(weeks: 12)
+      let recentPosted = try self.dataService.getLastWeeksPosts(weeks: 12) // about 3 months
 
       self.presenter.presentLoadedSection(media:
         [
@@ -52,6 +60,7 @@ final class TopMostInteractor {
       self.presenter.presentAlertController(with: error.localizedDescription)
     }
   }
+  
 }
 
 
@@ -59,7 +68,7 @@ final class TopMostInteractor {
 
 extension TopMostInteractor: TopMostInteractorInputProtocol {
   
-  func loadInstagramMedia() {
+  @objc func loadInstagramMedia() {
     guard let userAccount = self.settings.getUserAccount() else {
       self.presenter.presentEmptySection()
       return

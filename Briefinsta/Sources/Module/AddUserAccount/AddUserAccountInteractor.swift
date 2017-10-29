@@ -14,10 +14,12 @@ protocol AddUserAccountInteractorInputProtocol: class {
   func deleteAllData()
 }
 
+
 protocol AddUserAccountInteractorWorkerInputProtocol: class {
   func didFinishImporting(_ output: AddUserAccountInteractorWorkerOutput?)
   func errorOccured(_ error: Error)
 }
+
 
 final class AddUserAccountInteractor {
   
@@ -33,6 +35,7 @@ final class AddUserAccountInteractor {
   var username: String?
   private var localCountLimit = 0
   private var collectedCount = 0
+  
   
   // MARK: Initializing
   
@@ -61,7 +64,6 @@ extension AddUserAccountInteractor: AddUserAccountInteractorInputProtocol {
     self.instagramService.user(with: username) { result in
       switch result {
       case .success(let media):
-        print(media)
         if media.count > 0  {
           self.settings.setUserAccount(value: username)
           self.localCountLimit = self.settings.getMaxColletingPosts() ?? 1000
@@ -140,12 +142,8 @@ extension AddUserAccountInteractor {
   }
   
   fileprivate func loadStoredMedia() {
-    print("Interactor.loadStoredMedia")
     self.presenter.presentAnalysisCompleted()
-    // TODO: loadStoredMedia
-    // pass the media to other page by using wireframe
-    // - notify reloadUI to the other controllers
-    // - or current wireframe?...
+    NotificationCenter.default.post(name: Notification.Name(rawValue:"analysisCompleted"), object: nil)
   }
 }
 

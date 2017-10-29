@@ -12,6 +12,7 @@ protocol AddUserAccountHeaderFooterType {
   func configure(text: String)
 }
 
+
 final class AddUserAccountHeaderFooter: UITableViewCell, AddUserAccountHeaderFooterType {
   
   // MARK: Constants

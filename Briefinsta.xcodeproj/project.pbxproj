@@ -49,7 +49,7 @@
 		BDE903521FA475C9009205F3 /* TopMostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE903511FA475C9009205F3 /* TopMostViewController.swift */; };
 		BDE903541FA475D4009205F3 /* TopMostWireframe.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE903531FA475D4009205F3 /* TopMostWireframe.swift */; };
 		BDE903561FA475DD009205F3 /* TopMostPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE903551FA475DD009205F3 /* TopMostPresenter.swift */; };
-		BDE903581FA475E5009205F3 /* TopMostInterActor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE903571FA475E5009205F3 /* TopMostInterActor.swift */; };
+		BDE903581FA475E5009205F3 /* TopMostInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE903571FA475E5009205F3 /* TopMostInteractor.swift */; };
 		BDF968231FA1567700CCF2FE /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF968221FA1567700CCF2FE /* Settings.swift */; };
 		BDF968251FA1626500CCF2FE /* SettingViewTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */; };
 		E4FDFD8848E5A1DF2B382DBF /* Pods_BriefinstaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 37D70BD5C4156914E1E49C13 /* Pods_BriefinstaUITests.framework */; };
@@ -128,7 +128,7 @@
 		BDE903511FA475C9009205F3 /* TopMostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostViewController.swift; sourceTree = "<group>"; };
 		BDE903531FA475D4009205F3 /* TopMostWireframe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostWireframe.swift; sourceTree = "<group>"; };
 		BDE903551FA475DD009205F3 /* TopMostPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostPresenter.swift; sourceTree = "<group>"; };
-		BDE903571FA475E5009205F3 /* TopMostInterActor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostInterActor.swift; sourceTree = "<group>"; };
+		BDE903571FA475E5009205F3 /* TopMostInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostInteractor.swift; sourceTree = "<group>"; };
 		BDF968221FA1567700CCF2FE /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		BDF968241FA1626500CCF2FE /* SettingViewTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -177,7 +177,7 @@
 				BDE903531FA475D4009205F3 /* TopMostWireframe.swift */,
 				BDE903511FA475C9009205F3 /* TopMostViewController.swift */,
 				BDE903551FA475DD009205F3 /* TopMostPresenter.swift */,
-				BDE903571FA475E5009205F3 /* TopMostInterActor.swift */,
+				BDE903571FA475E5009205F3 /* TopMostInteractor.swift */,
 				BD2F8B171FA51BDF00D1B793 /* TopMostViewCell.swift */,
 				BDAAEE791FA5445A0002A115 /* InstagramMediumCell.swift */,
 			);
@@ -732,7 +732,7 @@
 				BDD201BA1FA068C300C0A624 /* SettingPresenter.swift in Sources */,
 				BDD201C01FA126FB00C0A624 /* InstagramService.swift in Sources */,
 				BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */,
-				BDE903581FA475E5009205F3 /* TopMostInterActor.swift in Sources */,
+				BDE903581FA475E5009205F3 /* TopMostInteractor.swift in Sources */,
 				BD7525541FA04C9800403796 /* BaseWireframe.swift in Sources */,
 				BD2F8B181FA51BDF00D1B793 /* TopMostViewCell.swift in Sources */,
 				BDE57D631FA2683F002C7C50 /* UIColor+Briefinsta.swift in Sources */,

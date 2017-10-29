@@ -18,6 +18,8 @@ extension UIColor {
   }
   class var bi_lineColor: UIColor { return 0xE1E4E8.color }
   class var bi_textColor: UIColor { return 0x5C6774.color }
+  class var bi_charcoal: UIColor { return 0x333333.color }
+  class var bi_slate: UIColor { return 0x9DA3A5.color }
 }
 
 

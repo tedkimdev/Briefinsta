@@ -12,9 +12,10 @@ protocol SettingViewTableCellType {
   func configure(text: String)
 }
 
+
 final class SettingViewTableCell: UITableViewCell, SettingViewTableCellType {
   
-  // MARK: Metric
+  // MARK: Constants
   
   fileprivate struct Metric {
     static let settingLabelLeftRight: CGFloat = 20.0
@@ -85,11 +86,10 @@ final class SettingViewTableCell: UITableViewCell, SettingViewTableCellType {
     super.setHighlighted(highlighted, animated: animated)
     
     if highlighted {
-      self.backgroundColor = UIColor.bi_settingCellBackground
+      self.backgroundColor = .bi_settingCellBackground
     } else {
       self.backgroundColor = .white
     }
   }
-  
   
 }

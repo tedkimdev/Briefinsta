@@ -12,6 +12,7 @@ enum AddUserAccountInteractorWorkerError: Error {
   case invalidInstagramMedia(String)
 }
 
+
 struct AddUserAccountInteractorWorkerOutput {
   let offset: String?       // paging
   let moreAvailable: Bool?
