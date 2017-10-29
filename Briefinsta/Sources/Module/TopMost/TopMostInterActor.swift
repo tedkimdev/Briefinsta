@@ -39,13 +39,13 @@ final class TopMostInteractor {
       let mostCommented = try self.dataService.getMostCommentedPosts(with: 25)
       let mostLiked = try self.dataService.getMostLikedPosts(with: 25)
       let recentPosted = try self.dataService.getLastWeeksPosts(weeks: 12)
-      
+
       self.presenter.presentLoadedSection(media:
         [
-          TopMostViewViewModelSection(title: "Best Engagement", items: bestEngagement.map { InstagramMediaViewModel($0) }),
-          TopMostViewViewModelSection(title: "Most Comment Posts", items: mostCommented.map { InstagramMediaViewModel($0) }),
-          TopMostViewViewModelSection(title: "Most Like Posts", items: mostLiked.map { InstagramMediaViewModel($0) }),
-          TopMostViewViewModelSection(title: "Recent Post", items: recentPosted.map { InstagramMediaViewModel($0) }),
+          TopMostViewSection(title: "Best Posts", items: bestEngagement.map { InstagramMediaViewModel($0) }),
+          TopMostViewSection(title: "Most Comment Posts", items: mostCommented.map { InstagramMediaViewModel($0) }),
+          TopMostViewSection(title: "Most Like Posts", items: mostLiked.map { InstagramMediaViewModel($0) }),
+          TopMostViewSection(title: "Recent Posts", items: recentPosted.map { InstagramMediaViewModel($0) }),
         ]
       )
     } catch {

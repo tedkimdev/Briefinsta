@@ -44,12 +44,16 @@ final class TopMostViewController: BaseViewController {
     self.presenter.onViewDidLoad()
   }
   
+//  override func viewDidAppear(_ animated: Bool) {
+//    <#code#>
+//  }
   
   // MARK: Initializing
   
   init() {
     super.init(nibName: nil, bundle: nil)
-    self.tabBarItem.image = UIImage(named: "icon-setting")
+    self.title = "Brief report"
+    self.tabBarItem.image = UIImage(named: "icon-details")
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -59,7 +63,7 @@ final class TopMostViewController: BaseViewController {
   override func setupUI() {
     self.navigationController?.navigationBar.isTranslucent = false
     self.navigationItem.largeTitleDisplayMode = .always
-    self.navigationItem.title = "Report🦊"
+    self.navigationItem.title = "Briefinsta 📸"
     
     self.view.backgroundColor = .white
     

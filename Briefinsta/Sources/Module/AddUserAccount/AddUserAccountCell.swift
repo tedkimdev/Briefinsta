@@ -34,6 +34,7 @@ final class AddUserAccountCell: UITableViewCell {
   
   let usernameField: UITextField = {
     let textField = UITextField()
+    textField.placeholder = "Input username"
     return textField
   }()
   
@@ -61,9 +62,9 @@ final class AddUserAccountCell: UITableViewCell {
   
   // MARK: Configuring
   
-  func configure(placeholder: String?) {
-    guard let placeholder = placeholder else { return }
-    self.usernameField.placeholder = placeholder
+  func configure(text: String?) {
+    guard let text = text else { return }
+    self.usernameField.text = text
   }
   
   @objc fileprivate func textFieldDidChange(_ textField: UITextField) {

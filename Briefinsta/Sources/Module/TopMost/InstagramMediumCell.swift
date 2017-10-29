@@ -29,7 +29,24 @@ final class InstagramMediumCell: UICollectionViewCell {
     image.contentMode = .scaleAspectFill
     image.layer.cornerRadius = 8
     image.layer.masksToBounds = true
-    image.image = UIImage(named: "placeHolder")
+    return image
+  }()
+  
+  let likeImageView: UIImageView = {
+    let image = UIImageView()
+    image.contentMode = .scaleAspectFill
+    image.layer.masksToBounds = true
+    image.tintColor = .red
+    image.image = UIImage(named: "icon-heart")?.withRenderingMode(.alwaysTemplate)
+    return image
+  }()
+  
+  let commentImageView: UIImageView = {
+    let image = UIImageView()
+    image.contentMode = .scaleAspectFill
+    image.layer.masksToBounds = true
+    image.tintColor = .red
+    image.image = UIImage(named: "icon-comment")
     return image
   }()
   
@@ -48,11 +65,15 @@ final class InstagramMediumCell: UICollectionViewCell {
   
   fileprivate func setupUI() {
     self.addSubview(self.imageView)
+    self.addSubview(self.likeImageView)
     self.addSubview(self.likesLabel)
+    self.addSubview(self.commentImageView)
     self.addSubview(self.commentsLabel)
-    self.imageView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.width)
-    self.likesLabel.frame = CGRect(x: 0, y: frame.width + 6, width: frame.width, height: 16)
-    self.commentsLabel.frame = CGRect(x: 0, y: frame.width + 25, width: frame.width, height: 16)
+    self.imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width)
+    self.likeImageView.frame = CGRect(x: 0, y: self.frame.width + 6, width: 16, height: 16)
+    self.likesLabel.frame = CGRect(x: 24, y: self.frame.width + 6, width: self.frame.width, height: 16)
+    self.commentImageView.frame = CGRect(x: 0, y: self.frame.width + 26, width: 16, height: 16)
+    self.commentsLabel.frame = CGRect(x: 24, y: self.frame.width + 26, width: self.frame.width, height: 16)
   }
   
   override func prepareForReuse() {
@@ -63,9 +84,14 @@ final class InstagramMediumCell: UICollectionViewCell {
   // MARK: Configuring
   
   func configure(viewModel: InstagramMediaViewModel) {
-    self.imageView.kf.setImage(with: URL(string: viewModel.imageURL))
-    self.commentsLabel.text = "Comments \(viewModel.comments)"
-    self.likesLabel.text = "Likes \(viewModel.likes)"
+    if !viewModel.imageURL.isEmpty {
+      self.imageView.kf.setImage(with: URL(string: viewModel.imageURL))
+    } else {
+      self.imageView.image = UIImage(named: "placeholder")?.withRenderingMode(.alwaysOriginal)
+    }
+    
+    self.commentsLabel.text = "\(viewModel.comments)"
+    self.likesLabel.text = "\(viewModel.likes)"
   }
   
 }

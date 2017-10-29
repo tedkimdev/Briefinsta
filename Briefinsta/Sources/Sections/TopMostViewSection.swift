@@ -8,21 +8,9 @@
 
 import Foundation
 
-enum TopMostViewSection {
-  case topMost([TopMostViewSectionItem])
-}
-
-extension TopMostViewSection {
-  var items: [TopMostViewSectionItem] {
-    switch self {
-    case .topMost(let items): return items
-    }
-  }
-}
-
-enum TopMostViewSectionItem {
-  case topMost([InstagramMediaViewModel])
-  case likesCount([InstagramMediaViewModel])
+struct TopMostViewSection {
+  let title: String
+  let items: [InstagramMediaViewModel]
 }
 
 struct InstagramMediaViewModel {
@@ -35,9 +23,16 @@ struct InstagramMediaViewModel {
     self.comments = String(medium.commentsCount)
     self.imageURL = medium.imageURL
   }
+  
+  init(likes: String, comments: String, imageURL: String) {
+    self.likes = likes
+    self.comments = comments
+    self.imageURL = imageURL
+  }
+  
+  static func sample() -> InstagramMediaViewModel {
+    return InstagramMediaViewModel(likes: "999", comments: "999", imageURL: "")
+  }
+  
 }
 
-struct TopMostViewViewModelSection {
-  let title: String
-  let items: [InstagramMediaViewModel]
-}

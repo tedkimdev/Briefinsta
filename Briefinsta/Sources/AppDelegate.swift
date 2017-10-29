@@ -58,7 +58,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
     UINavigationBar.appearance().backgroundColor = .white
     UINavigationBar.appearance().tintColor = UIColor.red
-    UITabBar.appearance().tintColor = .green//UIColor.init(red: 233/255, green: 79/255, blue: 97/255, alpha: 1)
+    UITabBar.appearance().tintColor = UIColor.init(red: 233/255, green: 79/255, blue: 97/255, alpha: 1)
   }
 
 }

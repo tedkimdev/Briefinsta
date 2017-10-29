@@ -31,7 +31,8 @@ final class AddUserAccountInteractor {
   
   var worker: AddUserAccountInteractorWorker?
   var username: String?
-  
+  private var localCountLimit = 0
+  private var collectedCount = 0
   
   // MARK: Initializing
   
@@ -63,6 +64,7 @@ extension AddUserAccountInteractor: AddUserAccountInteractorInputProtocol {
         print(media)
         if media.count > 0  {
           self.settings.setUserAccount(value: username)
+          self.localCountLimit = self.settings.getMaxColletingPosts() ?? 1000
           self.username = username
           self.downloadMedia()
         } else {
@@ -93,11 +95,14 @@ extension AddUserAccountInteractor: AddUserAccountInteractorInputProtocol {
 
 extension AddUserAccountInteractor {
   
+  /// start download #1
   fileprivate func downloadMedia() {
     guard let name = self.settings.getUserAccount() else { return }
+    self.collectedCount = 0
     self.performFetchMedia(name, offset: nil)
   }
   
+  /// continue download #2
   fileprivate func performFetchMedia(_ username: String, offset: String?) {
     self.instagramService.media(with: username, offset: offset) { result in
       switch result {
@@ -139,6 +144,8 @@ extension AddUserAccountInteractor {
     self.presenter.presentAnalysisCompleted()
     // TODO: loadStoredMedia
     // pass the media to other page by using wireframe
+    // - notify reloadUI to the other controllers
+    // - or current wireframe?...
   }
 }
 
@@ -147,11 +154,12 @@ extension AddUserAccountInteractor {
 
 extension AddUserAccountInteractor: AddUserAccountInteractorWorkerInputProtocol {
   
+  /// continue downlaod #3 (repeat #2, #3)
   func didFinishImporting(_ output: AddUserAccountInteractorWorkerOutput?) {
-    print("AddUserAccountInteractor.didFinishImporting")
     if let moreAvailable = output?.moreAvailable,
       let localCount = output?.localCount,
-      moreAvailable && localCount < 100 { //몇개까지로 제한?? 1000? continue
+      moreAvailable && (self.collectedCount + localCount) < self.localCountLimit {
+      self.collectedCount += localCount
       self.performFetchMedia(self.username!, offset: output?.offset)
     } else {  // end
       DispatchQueue.main.async {

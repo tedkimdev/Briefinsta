@@ -27,7 +27,7 @@ protocol TopMostPresenterProtocol: class, BasePresenterProtocol {
 protocol TopMostInteractorOutputProtocol: class {
   // Interactor -> Presenter
   func presentEmptySection() // no account
-  func presentLoadedSection(media: [TopMostViewViewModelSection])
+  func presentLoadedSection(media: [TopMostViewSection])
   func presentAlertController(with message: String)
 }
 
@@ -40,7 +40,8 @@ final class TopMostPresenter {
   private let wireframe: TopMostWireframeProtocol
   private let interactor: TopMostInteractorInputProtocol
   
-  private var sections: [TopMostViewViewModelSection]?
+  private var sections: [TopMostViewSection]?
+  
   
   // MARK: Initializing
   
@@ -110,14 +111,20 @@ extension TopMostPresenter: TopMostPresenterProtocol {
 extension TopMostPresenter: TopMostInteractorOutputProtocol {
   
   func presentEmptySection() {
-    // TODO: Make empty sections
-//    self.sections = media
+    let emptyItems = [InstagramMediaViewModel.sample(), InstagramMediaViewModel.sample(), InstagramMediaViewModel.sample()]
+    self.sections = [
+      TopMostViewSection(title: "Best Posts", items: emptyItems),
+      TopMostViewSection(title: "Most Comment Posts", items: emptyItems),
+      TopMostViewSection(title: "Most Like Posts", items: emptyItems),
+      TopMostViewSection(title: "Recent Posts", items: emptyItems),
+    ]
+    
     DispatchQueue.main.async {
       self.view.displayLoadedMedia()
     }
   }
   
-  func presentLoadedSection(media: [TopMostViewViewModelSection]) {
+  func presentLoadedSection(media: [TopMostViewSection]) {
     self.sections = media
     DispatchQueue.main.async {
       self.view.displayLoadedMedia()

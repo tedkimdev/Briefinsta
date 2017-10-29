@@ -100,6 +100,9 @@ final class AddUserAccountViewController: BaseViewController {
 extension AddUserAccountViewController: AddUserAccountViewProtocol {
   
   func displayAddUserAccount() {
+    self.tableView.isUserInteractionEnabled = true
+    self.tableView.reloadData()
+    
     self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonDidTap(_:)))
     self.navigationItem.setLeftBarButton(nil, animated: true)
     self.navigationItem.setRightBarButton(self.doneButton, animated: true)
@@ -110,6 +113,9 @@ extension AddUserAccountViewController: AddUserAccountViewProtocol {
     let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
     activityIndicator.color = UIColor.black
     activityIndicator.startAnimating()
+    
+    self.tableView.isUserInteractionEnabled = false
+    
     self.doneButton = UIBarButtonItem(customView: activityIndicator)
     self.navigationItem.setRightBarButton(self.doneButton, animated: true)
     self.navigationItem.setLeftBarButton(self.cancelButton, animated: true)
@@ -118,6 +124,8 @@ extension AddUserAccountViewController: AddUserAccountViewProtocol {
   func displayUpdateUserAccount() {
     // TODO: display username ....
 //    self.tableView.cellForRow(at: <#T##IndexPath#>)
+    self.tableView.isUserInteractionEnabled = true
+    self.tableView.reloadData()
     
     self.navigationItem.hidesBackButton = false
     self.navigationItem.setLeftBarButton(nil, animated: true)

@@ -40,7 +40,7 @@ final class AddUserAccountPresenter {
   private let wireframe: AddUserAccountWireframeProtocol
   private let interactor: AddUserAccountInteractorInputProtocol
   
-  private var username: String!
+  private var username: String = ""
   private var sections: [AddUserAccountViewSection]
   
   
@@ -66,7 +66,6 @@ final class AddUserAccountPresenter {
 extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
   
   func onViewDidLoad() {
-    print("Presenter.onViewDidLoad")
     self.view.displayAddUserAccount()
   }
   
@@ -120,7 +119,9 @@ extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
   func configureCell(_ cell: AddUserAccountCell, for indexPath: IndexPath) {
     switch self.sections[indexPath.section].items[indexPath.row] {
     case .editAccount:
-      cell.configure(placeholder: "Username")
+      if !self.username.isEmpty {
+        cell.configure(text: self.username)
+      }
     }
   }
   
@@ -132,17 +133,23 @@ extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
 extension AddUserAccountPresenter: AddUserAccountInteractorOutputProtocol {
   
   func presentAddUserAccount() {
-    self.view.displayAddUserAccount()
+    DispatchQueue.main.async {
+      self.view.displayAddUserAccount()
+    }
   }
   
   func presentAlertController(message: String) {
     self.presentAddUserAccount()
-    self.wireframe.navigate(to: .alert(title: "Error", message: message))
+    DispatchQueue.main.async {
+      self.wireframe.navigate(to: .alert(title: "Error", message: message))
+    }
   }
   
   func presentAnalysisCompleted() {
     self.presentAddUserAccount()
-    self.wireframe.navigate(to: .completed(title: "Completed", message: "Now you can see reports."))
+    DispatchQueue.main.async {
+      self.wireframe.navigate(to: .completed(title: "Completed", message: "Now you can see reports."))
+    }
   }
   
 }

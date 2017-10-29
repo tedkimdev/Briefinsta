@@ -280,13 +280,6 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		BDCE25C61FA0287F00ED091F /* App */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = App;
-			sourceTree = "<group>";
-		};
 		BDCE25C81FA0287F00ED091F /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -299,11 +292,9 @@
 		BDCE25C91FA0287F00ED091F /* Module */ = {
 			isa = PBXGroup;
 			children = (
-				BDCE25C61FA0287F00ED091F /* App */,
 				BDCE25CA1FA0287F00ED091F /* Base */,
 				BDCE25CB1FA0287F00ED091F /* Main */,
 				BD5C2C891FA44BAC009577F7 /* TopMost */,
-				BDCE25CC1FA0287F00ED091F /* Recent */,
 				BDCE25CD1FA0288000ED091F /* Setting */,
 				BDBDC8B31FA29D5B008374AA /* AddUserAccount */,
 			);
@@ -329,13 +320,6 @@
 				BD5C2C8A1FA44ED2009577F7 /* MainTabBarController.swift */,
 			);
 			path = Main;
-			sourceTree = "<group>";
-		};
-		BDCE25CC1FA0287F00ED091F /* Recent */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Recent;
 			sourceTree = "<group>";
 		};
 		BDCE25CD1FA0288000ED091F /* Setting */ = {

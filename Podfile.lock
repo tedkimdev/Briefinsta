@@ -8,8 +8,6 @@ PODS:
   - Moya/Core (9.0.0):
     - Alamofire (~> 4.1)
     - Result (~> 3.0)
-  - Nimble (7.0.2)
-  - Quick (1.2.0)
   - Realm (2.10.2):
     - Realm/Headers (= 2.10.2)
   - Realm/Headers (2.10.2)
@@ -23,8 +21,6 @@ DEPENDENCIES:
   - Kingfisher (~> 4.0)
   - ManualLayout
   - Moya
-  - Nimble
-  - Quick
   - RealmSwift
   - SnapKit
 
@@ -34,13 +30,11 @@ SPEC CHECKSUMS:
   Kingfisher: f14df8cbe576bf55f211fa589e9869bceb4ea87d
   ManualLayout: 68ac8cfa6b5f656f7a9fadec3730208b95986880
   Moya: cf5e6ee93af526532f92614004b8ad2ea60fd845
-  Nimble: bfe1f814edabba69ff145cb1283e04ed636a67f2
-  Quick: 58d203b1c5e27fff7229c4c1ae445ad7069a7a08
   Realm: 0ef72b837fb67e9f4b098bac771ddd72c7fdbb69
   RealmSwift: 07a9ae0505091eda6b2ee7c190c3786d6e90a7b0
   Result: d2d07204ce72856f1fd9130bbe42c35a7b0fea10
   SnapKit: a42d492c16e80209130a3379f73596c3454b7694
 
-PODFILE CHECKSUM: 459d599ee9c5086ac711d1f946debf0aa20f0faa
+PODFILE CHECKSUM: a869bbb8f16717b251c3162beedb8223753b0908
 
 COCOAPODS: 1.2.1

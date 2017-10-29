@@ -62,8 +62,9 @@ final class DataService: DataServiceType {
     let instagramMedia = self.withRealm("get the top n most liked media")
     { realm -> [InstagramMedium] in
       let objects = realm.objects(InstagramMediumEntity.self).sorted(byKeyPath: "likesCount", ascending: false)
+      let limitCount = min(objects.count, limit)
       var limitedObjects = [InstagramMediumEntity]()
-      for i in 0..<limit {
+      for i in 0..<limitCount {
         limitedObjects.append(objects[i])
       }
       let media = limitedObjects.map { InstagramMedium.initInstagramMedium(from: $0) }
@@ -79,8 +80,9 @@ final class DataService: DataServiceType {
     let instagramMedia = self.withRealm("get the top n most commented media")
     { realm -> [InstagramMedium] in
       let objects = realm.objects(InstagramMediumEntity.self).sorted(byKeyPath: "commentsCount", ascending: false)
+      let limitCount = min(objects.count, limit)
       var limitedObjects = [InstagramMediumEntity]()
-      for i in 0..<limit {
+      for i in 0..<limitCount {
         limitedObjects.append(objects[i])
       }
       let media = limitedObjects.map { InstagramMedium.initInstagramMedium(from: $0) }
@@ -109,8 +111,9 @@ final class DataService: DataServiceType {
     let instagramMedia = self.withRealm("get the top n engagement media")
     { realm -> [InstagramMedium] in
       let objects = realm.objects(InstagramMediumEntity.self).sorted(byKeyPath: "engagementCount", ascending: false)
+      let limitCount = min(objects.count, limit)
       var limitedObjects = [InstagramMediumEntity]()
-      for i in 0..<limit {
+      for i in 0..<limitCount {
         limitedObjects.append(objects[i])
       }
       let media = limitedObjects.map { InstagramMedium.initInstagramMedium(from: $0) }

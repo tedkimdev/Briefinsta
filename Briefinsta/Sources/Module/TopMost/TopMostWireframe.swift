@@ -10,7 +10,6 @@ import Foundation
 
 protocol TopMostWireframeProtocol: class {
   // Presenter -> Wireframe
-//  func navigate(to route: Router.Setting)
 }
 
 final class TopMostWireframe: BaseWireframe {
@@ -30,5 +29,4 @@ final class TopMostWireframe: BaseWireframe {
 }
 
 extension TopMostWireframe: TopMostWireframeProtocol {
-  
 }

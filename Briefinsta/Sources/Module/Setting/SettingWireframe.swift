@@ -68,6 +68,14 @@ final class SettingWireframe: BaseWireframe {
     self.show(addUserAccountView, with: .push)
   }
   
+  private func showAlert(title: String, message: String) {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alertController.addAction(action)
+    
+    self.show(alertController, with: .present(from: self.view), animated: true)
+  }
+  
 }
 
 
@@ -83,6 +91,8 @@ extension SettingWireframe: SettingWireframeProtocol {
       self.showOpenSourceList()
     case .editAccount:
       self.showAddUserAccountView()
+    case .alert(title: let title, message: let message):
+      self.showAlert(title: title, message: message)
     }
   }
   

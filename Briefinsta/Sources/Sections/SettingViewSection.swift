@@ -11,6 +11,7 @@ import Foundation
 enum SettingViewSection {
   case about([SettingsViewSectionItem])
   case account([SettingsViewSectionItem])
+  case maxPosts([SettingsViewSectionItem])
   case delete([SettingsViewSectionItem])
 }
 
@@ -20,17 +21,20 @@ extension SettingViewSection {
     switch self {
     case .about(let items): return items
     case .account(let items): return items
+    case .maxPosts(let items): return items
     case .delete(let items): return items
     }
   }
   
   var headerName: String {
     switch self {
-    case .about(_):
+    case .about:
       return "Information"
-    case .account(_):
+    case .account:
       return "User Account"
-    case .delete(_):
+    case .maxPosts:
+      return "Total Collecting Count"
+    case .delete:
       return ""
     }
   }
@@ -43,5 +47,6 @@ enum SettingsViewSectionItem {
   case icons(String)
   case openSource(String)
   case account
+  case maxPosts(Int)
   case delete(String)
 }
