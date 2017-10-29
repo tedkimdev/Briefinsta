@@ -65,6 +65,7 @@ extension AddUserAccountInteractor: AddUserAccountInteractorInputProtocol {
       switch result {
       case .success(let media):
         if media.count > 0  {
+          self.deleteAllData()
           self.settings.setUserAccount(value: username)
           self.localCountLimit = self.settings.getMaxColletingPosts() ?? 1000
           self.username = username
