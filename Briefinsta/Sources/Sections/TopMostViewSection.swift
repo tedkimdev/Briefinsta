@@ -20,8 +20,11 @@ struct InstagramMediaViewModel {
   let imageURL: String
   
   init(_ medium: InstagramMedium) {
-    self.likes = String(medium.likesCount)
-    self.comments = String(medium.commentsCount)
+    let formatter = NumberFormatter()
+    formatter.numberStyle = .decimal
+    
+    self.likes = formatter.string(from: NSNumber(integerLiteral: medium.likesCount))!
+    self.comments = formatter.string(from: NSNumber(integerLiteral: medium.commentsCount))!
     self.imageURL = medium.imageURL
   }
   

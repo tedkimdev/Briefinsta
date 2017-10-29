@@ -127,18 +127,27 @@ extension SettingPresenter: SettingPresenterProtocol {
     case .account:
       let username = self.username.isEmpty ? "User Account" : self.username
       cell.configure(text: username)
+      
     case .version(let text, _):
       cell.configure(text: text)
+      
     case .icons(let text):
       cell.configure(text: text)
+      
     case .openSource(let text):
       cell.configure(text: text)
+      
     case .delete(let text):
       cell.configure(text: text)
+      
 //    case .github():
 //      cell.configure(text: text)
+      
     case .maxPosts:
-      cell.configure(text: String(self.maxMediaNumber))
+      let formatter = NumberFormatter()
+      formatter.numberStyle = .decimal
+      cell.configure(text: formatter.string(from: NSNumber(integerLiteral: self.maxMediaNumber)) ?? "1,000")
+      
     default:
       cell.configure(text: "")
     }
