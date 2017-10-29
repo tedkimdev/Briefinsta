@@ -13,6 +13,7 @@ protocol InstagramServiceType {
   func media(with username: String, offset: String?, completion: @escaping (Result<InstagramMedia>) -> () )
 }
 
+
 final class InstagramService: InstagramServiceType {
   
   private let provider : MoyaProvider<Instagram>

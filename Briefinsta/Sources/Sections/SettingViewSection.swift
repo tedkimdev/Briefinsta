@@ -15,6 +15,7 @@ enum SettingViewSection {
   case delete([SettingsViewSectionItem])
 }
 
+
 extension SettingViewSection {
   
   var items: [SettingsViewSectionItem] {
@@ -40,6 +41,7 @@ extension SettingViewSection {
   }
   
 }
+
 
 enum SettingsViewSectionItem {
   case version(String, String)

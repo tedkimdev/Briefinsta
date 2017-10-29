@@ -12,6 +12,7 @@ protocol SettingViewTableCellType {
   func configure(text: String)
 }
 
+
 final class SettingViewTableCell: UITableViewCell, SettingViewTableCellType {
   
   // MARK: Metric
@@ -90,6 +91,5 @@ final class SettingViewTableCell: UITableViewCell, SettingViewTableCellType {
       self.backgroundColor = .white
     }
   }
-  
   
 }

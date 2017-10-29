@@ -22,6 +22,7 @@ protocol SettingPresenterProtocol: class, BasePresenterProtocol {
   // Navigation
 }
 
+
 protocol SettingInteractorOutputProtocol: class {
   // Interactor -> Presenter
   func setUsername(_ username: String?)
@@ -30,6 +31,7 @@ protocol SettingInteractorOutputProtocol: class {
   func presentUpdatedSettingView()
   func presentDeletedData(message: String)
 }
+
 
 final class SettingPresenter {
   

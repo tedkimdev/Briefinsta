@@ -12,6 +12,7 @@ protocol TopMostWireframeProtocol: class {
   // Presenter -> Wireframe
 }
 
+
 final class TopMostWireframe: BaseWireframe {
   
   static func createModule(dataService: DataServiceType, settings: Settings) -> TopMostViewController {
@@ -27,6 +28,7 @@ final class TopMostWireframe: BaseWireframe {
     return view
   }
 }
+
 
 extension TopMostWireframe: TopMostWireframeProtocol {
 }

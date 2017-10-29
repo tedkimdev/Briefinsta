@@ -14,6 +14,7 @@ protocol SettingViewProtocol: class {
   func displayAlertInput()
 }
 
+
 final class SettingViewController: BaseViewController {
   
   // MARK: Constants

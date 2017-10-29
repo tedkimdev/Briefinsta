@@ -12,6 +12,7 @@ protocol BasePresenterProtocol: class {
   func onViewDidLoad()
 }
 
+
 extension BasePresenterProtocol {
   func onViewDidLoad() { }
 }

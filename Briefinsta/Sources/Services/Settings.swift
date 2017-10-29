@@ -31,11 +31,6 @@ class Settings {
     return userAccount
   }
   
-  func getMaxColletingPosts() -> Int? {
-    guard let maxPosts = self.defaults.object(forKey: "MaxColletingPosts") as? Int else { return nil }
-    return maxPosts
-  }
-  
   func setMaxColletingPosts(value: Int?) {
     guard let value = value else {
       self.defaults.set(1000, forKey: "MaxColletingPosts")
@@ -44,6 +39,11 @@ class Settings {
     }
     self.defaults.set(value, forKey: "MaxColletingPosts")
     self.defaults.synchronize()
+  }
+  
+  func getMaxColletingPosts() -> Int? {
+    guard let maxPosts = self.defaults.object(forKey: "MaxColletingPosts") as? Int else { return nil }
+    return maxPosts
   }
   
 }

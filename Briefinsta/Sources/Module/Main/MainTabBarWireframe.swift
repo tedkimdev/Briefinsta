@@ -13,6 +13,7 @@ protocol MainTabBarWireframeProtocol: class {
   // Presenter -> Wireframe
 }
 
+
 final class MainTabBarWireframe: BaseWireframe {
   
   static func createModule(viewControllers: [UIViewController]) -> MainTabBarViewController {
