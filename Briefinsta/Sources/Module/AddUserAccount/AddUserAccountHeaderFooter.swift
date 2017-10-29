@@ -35,6 +35,7 @@ final class AddUserAccountHeaderFooter: UITableViewCell, AddUserAccountHeaderFoo
     let label = UILabel()
     label.numberOfLines = 0
     label.font = Font.titleLabel
+    label.textColor = .bi_charcoal
     return label
   }()
   
