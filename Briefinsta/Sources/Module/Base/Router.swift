@@ -17,9 +17,11 @@ enum Router {
     case icons8(url: URL)
     case openSourceLicenses
     case editAccount
+    case alert(title: String, message: String)
   }
   
   enum AddUserAccount {
     case alert(title: String, message: String)
+    case completed(title: String, message: String)
   }
 }

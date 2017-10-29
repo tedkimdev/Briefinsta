@@ -10,8 +10,8 @@ import UIKit
 
 protocol SettingViewProtocol: class {
   // Presenter -> View
-  func startNetworking()
-  func stopNetworking()
+  func reloadUI()
+  func displayAlertInput()
 }
 
 final class SettingViewController: BaseViewController {
@@ -39,12 +39,29 @@ final class SettingViewController: BaseViewController {
   }()
   
   
+  // MARK: Initializing
+  
+  init() {
+    super.init(nibName: nil, bundle: nil)
+    self.title = "Settings"
+    self.tabBarItem.image = UIImage(named: "icon-settings")
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    fatalError("init(coder:) has not been implemented")
+  }
+  
+  
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     self.presenter.onViewDidLoad()
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = false
   }
   
   override func setupUI() {
@@ -73,12 +90,29 @@ final class SettingViewController: BaseViewController {
 
 extension SettingViewController: SettingViewProtocol {
   
-  func startNetworking() {
-    
+  func reloadUI() {
+    self.tableView.reloadData()
   }
   
-  func stopNetworking() {
+  func displayAlertInput() {
+    let alertController = UIAlertController(title: "Collecting media", message: "maximum media to collect", preferredStyle: .alert)
+
+    let confirmAction = UIAlertAction(title: "Enter", style: .default) { (_) in
+      guard let text = alertController.textFields?.first?.text,
+        let value = Int(text) else { return }
+
+      self.presenter.changeMaxMediaNumber(value)
+    }
+    let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { (_) in }
     
+    alertController.addTextField { (textField) in
+      textField.placeholder = "Enter number"
+    }
+    
+    alertController.addAction(confirmAction)
+    alertController.addAction(cancelAction)
+    
+    self.present(alertController, animated: true, completion: nil)
   }
   
 }
@@ -94,7 +128,7 @@ extension SettingViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-    if section == 2 {
+    if section == 3 {
       return 0.0
     }
     return Metric.headerHeight

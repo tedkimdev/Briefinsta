@@ -16,12 +16,21 @@ protocol SettingWireframeProtocol: class {
   func navigate(to route: Router.Setting)
 }
 
+
 final class SettingWireframe: BaseWireframe {
   
-  static func createModule() -> SettingViewController {
+  private var dataService: DataServiceType
+  private var instagramService: InstagramServiceType
+  private var settings: Settings
+  
+  static func createModule(
+    instagramService: InstagramServiceType,
+    dataService: DataServiceType,
+    settings: Settings
+  ) -> SettingViewController {
     let view = SettingViewController()
-    let wireframe = SettingWireframe()
-    let interactor = SettingInteractor(settings: Settings())
+    let wireframe = SettingWireframe(dataService: dataService, instagramService: instagramService, settings: settings)
+    let interactor = SettingInteractor(dataService: dataService, settings: settings)
     let presenter = SettingPresenter(view: view, wireframe: wireframe, interactor: interactor)
     
     view.presenter = presenter
@@ -29,6 +38,15 @@ final class SettingWireframe: BaseWireframe {
     interactor.presenter = presenter
     
     return view
+  }
+  
+  
+  // MARK: Initializing
+  
+  init(dataService: DataServiceType, instagramService: InstagramServiceType, settings: Settings) {
+    self.dataService = dataService
+    self.instagramService = instagramService
+    self.settings = settings
   }
   
   private func showIcon8(by url: URL) {
@@ -41,19 +59,27 @@ final class SettingWireframe: BaseWireframe {
     self.show(carteViewController, with: .push)
   }
   
-  private func showAlert() {
-    
+  private func showAddUserAccountView() {
+    let addUserAccountView = AddUserAccountWireframe.createModule(
+      instagramService: self.instagramService,
+      dataService: self.dataService,
+      settings: self.settings
+    )
+    self.show(addUserAccountView, with: .push)
   }
   
-  private func showAddUserAccountView() {
-    let addUserAccountView = AddUserAccountWireframe.createModule()
-    self.show(addUserAccountView, with: .push)
+  private func showAlert(title: String, message: String) {
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+    alertController.addAction(action)
+    
+    self.show(alertController, with: .present(from: self.view), animated: true)
   }
   
 }
 
 
-// MARK: - MainWireframeProtocol
+// MARK: - SettingWireframeProtocol
 
 extension SettingWireframe: SettingWireframeProtocol {
   
@@ -65,7 +91,16 @@ extension SettingWireframe: SettingWireframeProtocol {
       self.showOpenSourceList()
     case .editAccount:
       self.showAddUserAccountView()
+    case .alert(title: let title, message: let message):
+      self.showAlert(title: title, message: message)
     }
   }
+  
+}
+
+
+// MARK: - MainTabBarItemsWireframeProtocol
+
+extension SettingWireframe: MainTabBarViewProtocol {
   
 }

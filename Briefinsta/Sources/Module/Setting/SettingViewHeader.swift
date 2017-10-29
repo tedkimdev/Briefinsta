@@ -20,9 +20,6 @@ final class SettingViewHeader: UITableViewCell, SettingHeaderType {
   fileprivate struct Metric {
     static let settingLabelLeftRight: CGFloat = 20.0
     
-    static let settingImageViewRight: CGFloat = 20.0
-    static let settingImageWidthHeight: CGFloat = 14.0
-    
     static let bottomLineLeftRight: CGFloat = 20.0
     static let bottomLineHeight: CGFloat = 1 / UIScreen.main.scale
   }
@@ -38,7 +35,6 @@ final class SettingViewHeader: UITableViewCell, SettingHeaderType {
   // MARK: UI
   
   var settingLabel: UILabel!
-  var settingImageView: UIImageView!
   
   var bottomLine: UIView!
   var bottomEndLine: UIView!
@@ -59,15 +55,6 @@ final class SettingViewHeader: UITableViewCell, SettingHeaderType {
     self.settingLabel.snp.makeConstraints { make in
       make.left.equalTo(self).offset(Metric.settingLabelLeftRight)
       make.right.equalTo(self).offset(-Metric.settingLabelLeftRight)
-      make.centerY.equalTo(self)
-    }
-    
-    settingImageView = UIImageView(image: UIImage(named: "icon-enter"))
-    self.addSubview(self.settingImageView)
-    
-    self.settingImageView.snp.makeConstraints { make in
-      make.right.equalTo(self).offset(-Metric.settingImageViewRight)
-      make.width.height.equalTo(Metric.settingImageWidthHeight)
       make.centerY.equalTo(self)
     }
     
@@ -103,16 +90,6 @@ final class SettingViewHeader: UITableViewCell, SettingHeaderType {
   
   func configure(text: String) {
     self.settingLabel.text = text
-  }
-  
-  override public func setHighlighted(_ highlighted: Bool, animated: Bool) {
-    super.setHighlighted(highlighted, animated: animated)
-    
-    if highlighted {
-      self.backgroundColor = UIColor.bi_settingCellBackground
-    } else {
-      self.backgroundColor = .white
-    }
   }
   
 }

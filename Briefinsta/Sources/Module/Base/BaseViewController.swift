@@ -10,14 +10,14 @@ import UIKit
 
 class BaseViewController: UIViewController {
   
-  // MARK: Initialize
+  // MARK: Initializing
   
   override func viewDidLoad() {
     super.viewDidLoad()
     setupUI()
     setupBinding()
   }
-  
+
   func setupUI() {
     // Override
   }

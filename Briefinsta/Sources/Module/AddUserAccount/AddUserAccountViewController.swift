@@ -10,6 +10,9 @@ import UIKit
 
 protocol AddUserAccountViewProtocol: class {
   // Presenter -> View
+  func displayAddUserAccount()
+  func displayLoadingUserAccount()
+  func displayUpdateUserAccount()
 }
 
 final class AddUserAccountViewController: BaseViewController {
@@ -17,7 +20,7 @@ final class AddUserAccountViewController: BaseViewController {
   // MARK: Constants
   
   fileprivate struct Metric {
-    static let headerHeight: CGFloat = 80.0
+    static let headerHeight: CGFloat = 50.0
     static let rowHeight: CGFloat = 40.0
   }
   
@@ -26,6 +29,7 @@ final class AddUserAccountViewController: BaseViewController {
   
   var presenter: AddUserAccountPresenterProtocol!
   private var username: String?
+  
   
   // MARK: UI
   
@@ -37,16 +41,20 @@ final class AddUserAccountViewController: BaseViewController {
   }()
   
   var doneButton: UIBarButtonItem!
-  
+  var cancelButton: UIBarButtonItem!
   
   // MARK: View Life Cycle
   
   override func viewDidLoad() {
     super.viewDidLoad()
     
-//    self.usernameTextfield.becomeFirstResponder()
-//    self.interactor?.loadAccount()
+    // TODO: becomeFirstResponder()
     self.presenter.onViewDidLoad()
+  }
+
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.tabBarController?.tabBar.isHidden = true
   }
   
   override func setupUI() {
@@ -63,8 +71,6 @@ final class AddUserAccountViewController: BaseViewController {
     
     self.view.addSubview(self.tableView)
     
-    self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonDidTap(_:)))
-    
     self.navigationItem.rightBarButtonItem = self.doneButton
   }
   
@@ -76,11 +82,15 @@ final class AddUserAccountViewController: BaseViewController {
   
   // MARK: Actions
   
-  @objc fileprivate func doneButtonDidTap(_ senter: Any) {
+  @objc fileprivate func doneButtonDidTap(_ sender: Any) {
     guard let username = self.username, !username.isEmpty else {
       return
     }
-    self.presenter.validateUserAccount(with: username)
+    self.presenter.doneButtonDidTap(with: username)
+  }
+  
+  @objc fileprivate func cancelButtonDidTap(_ sender: Any) {
+    self.presenter.cancelButtonDidTap()
   }
 }
 
@@ -88,6 +98,40 @@ final class AddUserAccountViewController: BaseViewController {
 // MARK: - AddUserAccountViewProtocol
 
 extension AddUserAccountViewController: AddUserAccountViewProtocol {
+  
+  func displayAddUserAccount() {
+    self.tableView.isUserInteractionEnabled = true
+    self.tableView.reloadData()
+    
+    self.doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButtonDidTap(_:)))
+    self.navigationItem.setLeftBarButton(nil, animated: true)
+    self.navigationItem.setRightBarButton(self.doneButton, animated: true)
+  }
+  
+  func displayLoadingUserAccount() {
+    self.cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButtonDidTap(_:)))
+    let activityIndicator = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 20, height: 20))
+    activityIndicator.color = UIColor.black
+    activityIndicator.startAnimating()
+    
+    self.tableView.isUserInteractionEnabled = false
+    
+    self.doneButton = UIBarButtonItem(customView: activityIndicator)
+    self.navigationItem.setRightBarButton(self.doneButton, animated: true)
+    self.navigationItem.setLeftBarButton(self.cancelButton, animated: true)
+  }
+  
+  func displayUpdateUserAccount() {
+    // TODO: display username ....
+//    self.tableView.cellForRow(at: <#T##IndexPath#>)
+    self.tableView.isUserInteractionEnabled = true
+    self.tableView.reloadData()
+    
+    self.navigationItem.hidesBackButton = false
+    self.navigationItem.setLeftBarButton(nil, animated: true)
+    self.navigationItem.setRightBarButton(nil, animated: true)
+  }
+  
 }
 
 
@@ -138,7 +182,7 @@ extension AddUserAccountViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "AddUserAccountCell", for: indexPath) as! AddUserAccountCell
     
-    // TODO: viewController? presenter?
+    self.presenter.configureCell(cell, for: indexPath)
     cell.textDidChange = { [weak self] username in
       guard let `self` = self else { return }
       self.username = username

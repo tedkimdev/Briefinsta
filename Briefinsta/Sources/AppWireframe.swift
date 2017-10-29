@@ -16,9 +16,7 @@ class AppWireframe: BaseWireframe {
   
   func setupKeyWindow(_ window: UIWindow, viewController: UIViewController) {
     self.window = window
-    let navigationController = UINavigationController(rootViewController: viewController)
-    navigationController.navigationBar.prefersLargeTitles = true
-    show(navigationController, with: .root(window: window))
+    show(viewController, with: .root(window: window))
     window.makeKeyAndVisible()
   }
 }

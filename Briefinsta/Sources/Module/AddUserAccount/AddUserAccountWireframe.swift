@@ -15,10 +15,18 @@ protocol AddUserAccountWireframeProtocol: class {
 
 final class AddUserAccountWireframe: BaseWireframe {
   
-  static func createModule() -> AddUserAccountViewController {
+  static func createModule(
+    instagramService: InstagramServiceType,
+    dataService: DataServiceType,
+    settings: Settings
+  ) -> AddUserAccountViewController {
     let view = AddUserAccountViewController()
     let wireframe = AddUserAccountWireframe()
-    let interactor = AddUserAccountInteractor(instagramService: InstagramService(), settings: Settings())
+    let interactor = AddUserAccountInteractor(
+      instagramService: instagramService,
+      dataService: dataService,
+      settings: settings
+    )
     let presenter = AddUserAccountPresenter(view: view, wireframe: wireframe, interactor: interactor)
     
     view.presenter = presenter
@@ -39,13 +47,15 @@ final class AddUserAccountWireframe: BaseWireframe {
 }
 
 
-// MARK: - MainWireframeProtocol
+// MARK: - AddUserAccountWireframeProtocol
 
 extension AddUserAccountWireframe: AddUserAccountWireframeProtocol {
   
   func navigate(to route: Router.AddUserAccount) {
     switch route {
     case let .alert(title: title, message: message):
+      self.showAlert(title: title, message: message)
+    case .completed(let title, let message):
       self.showAlert(title: title, message: message)
     }
   }

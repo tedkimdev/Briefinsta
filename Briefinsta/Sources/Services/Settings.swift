@@ -16,7 +16,12 @@ class Settings {
     self.defaults = UserDefaults.standard
   }
   
-  func setUserAccount(value: String) {
+  func setUserAccount(value: String?) {
+    guard let value = value else {
+      self.defaults.removeObject(forKey: "UserAccount")
+      self.defaults.synchronize()
+      return
+    }
     self.defaults.set(value, forKey: "UserAccount")
     self.defaults.synchronize()
   }
@@ -24,6 +29,21 @@ class Settings {
   func getUserAccount() -> String? {
     guard let userAccount = self.defaults.object(forKey: "UserAccount") as? String else { return nil }
     return userAccount
+  }
+  
+  func getMaxColletingPosts() -> Int? {
+    guard let maxPosts = self.defaults.object(forKey: "MaxColletingPosts") as? Int else { return nil }
+    return maxPosts
+  }
+  
+  func setMaxColletingPosts(value: Int?) {
+    guard let value = value else {
+      self.defaults.set(1000, forKey: "MaxColletingPosts")
+      self.defaults.synchronize()
+      return
+    }
+    self.defaults.set(value, forKey: "MaxColletingPosts")
+    self.defaults.synchronize()
   }
   
 }

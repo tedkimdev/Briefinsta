@@ -10,7 +10,7 @@ import Foundation
 
 protocol SettingPresenterProtocol: class, BasePresenterProtocol {
   // View -> Presenter
-  func reloadData()
+  func changeMaxMediaNumber(_ maxMediaNumber: Int)
   
   // TableView
   func numberOfSections() -> Int
@@ -20,12 +20,15 @@ protocol SettingPresenterProtocol: class, BasePresenterProtocol {
   func configureCell(_ cell: SettingViewTableCellType, for indexPath: IndexPath)
   
   // Navigation
-  func editAccount()
 }
 
 protocol SettingInteractorOutputProtocol: class {
   // Interactor -> Presenter
-  func setUsername(_ username: String)
+  func setUsername(_ username: String?)
+  func setmaxMediaNumber(_ value: Int)
+  func presentAlertController(message: String)
+  func presentUpdatedSettingView()
+  func presentDeletedData(message: String)
 }
 
 final class SettingPresenter {
@@ -36,7 +39,8 @@ final class SettingPresenter {
   private let wireframe: SettingWireframeProtocol
   private let interactor: SettingInteractorInputProtocol
   
-  private var username: String!
+  private var username: String = ""
+  private var maxMediaNumber: Int = 1000
   private var sections: [SettingViewSection]
   
   
@@ -50,14 +54,15 @@ final class SettingPresenter {
     self.interactor = interactor
     
     let aboutSection = SettingViewSection.about([
-      .version("version", "1.0.0"),
+      .version("Version", "0.1"),
       .openSource("Open Source Licenses"),
       .icons("Icons"),
     ])
     let accountSection = SettingViewSection.account([.account])
-    let logoutSection = SettingViewSection.logout([.logout("Logout")])
+    let maxPostsSection = SettingViewSection.maxPosts([.maxPosts(self.maxMediaNumber)])
+    let logoutSection = SettingViewSection.delete([.delete("Delete all data")])
     
-    self.sections = [aboutSection] + [accountSection] + [logoutSection]
+    self.sections = [aboutSection] + [accountSection] + [maxPostsSection] + [logoutSection]
   }
   
 }
@@ -68,15 +73,15 @@ final class SettingPresenter {
 extension SettingPresenter: SettingPresenterProtocol {
   
   func onViewDidLoad() {
-    print("Presenter.onViewDidLoad")
+    self.interactor.currentUserAccount()
+    self.interactor.getCurrentMaxMediaCount()
   }
   
-  func reloadData() {
+  func changeMaxMediaNumber(_ maxMediaNumber: Int) {
+    self.maxMediaNumber = maxMediaNumber
+    self.interactor.changeMaxMediaNumber(self.maxMediaNumber)
   }
   
-  func editAccount() {
-  }
-
   
   // MARK: TableView
   
@@ -100,6 +105,12 @@ extension SettingPresenter: SettingPresenterProtocol {
     case .account:
       self.wireframe.navigate(to: .editAccount)
       
+    case .maxPosts:
+      print("maxPosts")
+      self.presentInputAlert()
+    case .delete:
+      self.interactor.deleteStoredMediaAll()
+      
     default:
       print("Presenter.didSelectTableViewRowAt")
     }
@@ -112,41 +123,73 @@ extension SettingPresenter: SettingPresenterProtocol {
   func configureCell(_ cell: SettingViewTableCellType, for indexPath: IndexPath) {
     switch self.sections[indexPath.section].items[indexPath.row] {
     case .account:
-      cell.configure(text: "User Account")
-    case .version(let title, _):
-      cell.configure(text: title)
-    case .icons(let title):
-      cell.configure(text: title)
-    case .openSource(let title):
-      cell.configure(text: title)
-    case .logout(let title):
-      cell.configure(text: title)
+      let username = self.username.isEmpty ? "User Account" : self.username
+      cell.configure(text: username)
+    case .version(let text, _):
+      cell.configure(text: text)
+    case .icons(let text):
+      cell.configure(text: text)
+    case .openSource(let text):
+      cell.configure(text: text)
+    case .delete(let text):
+      cell.configure(text: text)
+//    case .github():
+//      cell.configure(text: text)
+    case .maxPosts:
+      cell.configure(text: String(self.maxMediaNumber))
     default:
-      cell.configure(text: "test")
+      cell.configure(text: "")
     }
   }
   
-  
   // MARK: Navigation
-  
-  func editSetting() {
-    //    wireframe.navigate(to: .editSetting(interactor.currentSetting, completion: { [weak self] setting in
-    //      guard let `self` = self, self.interactor.currentSetting != setting else { return }
-    //      self.interactor.changeServiceSetting(to: setting)
-    //      self.reloadData()
-    //    }))
-  }
+
 }
 
 
 // MARK: - SettingInteractorOutputProtocol
 
 extension SettingPresenter: SettingInteractorOutputProtocol {
-  
-  func setUsername(_ username: String) {
+
+  func setUsername(_ username: String?) {
+    guard let username = username else {
+      return
+    }
     self.username = username
-    self.view.stopNetworking()
+    DispatchQueue.main.async {
+      self.view.reloadUI()
+    }
+  }
+  
+  func setmaxMediaNumber(_ value: Int) {
+    self.maxMediaNumber = value
+    DispatchQueue.main.async {
+      self.view.reloadUI()
+    }
+  }
+  
+  func presentAlertController(message: String) {
+    DispatchQueue.main.async {
+      self.wireframe.navigate(to: .alert(title: "Completed", message: message))
+    }
+  }
+  
+  func presentDeletedData(message: String) {
+    self.username = ""
+    DispatchQueue.main.async {
+      self.view.reloadUI()
+      self.wireframe.navigate(to: .alert(title: "Completed", message: message))
+    }
+  }
+  
+  func presentUpdatedSettingView() {
+    DispatchQueue.main.async {
+      self.view.reloadUI()
+    }
+  }
+  
+  func presentInputAlert() {
+    self.view.displayAlertInput()
   }
   
 }
-

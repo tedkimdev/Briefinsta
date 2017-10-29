@@ -10,10 +10,8 @@ import Foundation
 
 protocol AddUserAccountPresenterProtocol: class, BasePresenterProtocol {
   // View -> Presenter
-  func reloadData()
-  
   func doneButtonDidTap(with username: String)
-  func validateUserAccount(with username: String)
+  func cancelButtonDidTap()
   
   // TableView
   func numberOfSections() -> Int
@@ -21,15 +19,17 @@ protocol AddUserAccountPresenterProtocol: class, BasePresenterProtocol {
   func didSelectTableViewRowAt(indexPath: IndexPath)
   func configureHeader(_ cell: AddUserAccountHeaderFooterType, in section: Int)
   func configureFooter(_ cell: AddUserAccountHeaderFooterType, in section: Int)
-  func configureCell(_ cell: AddUserAccountCellType, for indexPath: IndexPath)
+  func configureCell(_ cell: AddUserAccountCell, for indexPath: IndexPath)
   
   // Navigation
-  func editAccount()
+  
 }
 
 protocol AddUserAccountInteractorOutputProtocol: class {
   // Interactor -> Presenter
   func presentAlertController(message: String)
+  func presentAnalysisCompleted()
+  func presentAddUserAccount()
 }
 
 final class AddUserAccountPresenter {
@@ -40,7 +40,7 @@ final class AddUserAccountPresenter {
   private let wireframe: AddUserAccountWireframeProtocol
   private let interactor: AddUserAccountInteractorInputProtocol
   
-  private var username: String!
+  private var username: String = ""
   private var sections: [AddUserAccountViewSection]
   
   
@@ -66,22 +66,24 @@ final class AddUserAccountPresenter {
 extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
   
   func onViewDidLoad() {
-    print("Presenter.onViewDidLoad")
-  }
-  
-  func reloadData() {
-  }
-  
-  func editAccount() {
+    self.view.displayAddUserAccount()
   }
   
   func doneButtonDidTap(with username: String) {
+    self.view.displayLoadingUserAccount()
     self.interactor.validateAccount(with: username)
   }
+  
+  func cancelButtonDidTap() {
+    self.interactor.deleteAllData()
+    self.view.displayAddUserAccount()
+  }
+  
   func validateUserAccount(with username: String) {
     self.interactor.validateAccount(with: "leagueoflegendskorea")
 //    self.interactor.validateAccount(with: username)
   }
+  
   
   // MARK: TableView
   
@@ -101,24 +103,26 @@ extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
   }
   
   func configureHeader(_ cell: AddUserAccountHeaderFooterType, in section: Int) {
-    cell.configure(text: "Briefinsta is only available for public instagram account.")
-  }
-  
-  func configureFooter(_ cell: AddUserAccountHeaderFooterType, in section: Int) {
-    cell.configure(text: "It takes a few minutes to make a report.")
-  }
-  
-  func configureCell(_ cell: AddUserAccountCellType, for indexPath: IndexPath) {
-    switch self.sections[indexPath.section].items[indexPath.row] {
-    default:
-      cell.configure(text: "test")
+    switch self.sections[section] {
+    case .editAccount:
+      cell.configure(text: "Briefinsta is only available for public instagram account.")
     }
   }
   
+  func configureFooter(_ cell: AddUserAccountHeaderFooterType, in section: Int) {
+    switch self.sections[section] {
+      case .editAccount:
+        cell.configure(text: "It takes a few minutes to make a report.")
+    }
+  }
   
-  // MARK: Navigation
-  
-  func editAddUserAccount() {
+  func configureCell(_ cell: AddUserAccountCell, for indexPath: IndexPath) {
+    switch self.sections[indexPath.section].items[indexPath.row] {
+    case .editAccount:
+      if !self.username.isEmpty {
+        cell.configure(text: self.username)
+      }
+    }
   }
   
 }
@@ -127,9 +131,25 @@ extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
 // MARK: - AddUserAccountInteractorOutputProtocol
 
 extension AddUserAccountPresenter: AddUserAccountInteractorOutputProtocol {
-
+  
+  func presentAddUserAccount() {
+    DispatchQueue.main.async {
+      self.view.displayAddUserAccount()
+    }
+  }
+  
   func presentAlertController(message: String) {
-    self.wireframe.navigate(to: .alert(title: "Error", message: message))
+    self.presentAddUserAccount()
+    DispatchQueue.main.async {
+      self.wireframe.navigate(to: .alert(title: "Error", message: message))
+    }
+  }
+  
+  func presentAnalysisCompleted() {
+    self.presentAddUserAccount()
+    DispatchQueue.main.async {
+      self.wireframe.navigate(to: .completed(title: "Completed", message: "Now you can see reports."))
+    }
   }
   
 }
