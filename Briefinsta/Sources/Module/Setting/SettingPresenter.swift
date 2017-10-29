@@ -108,8 +108,8 @@ extension SettingPresenter: SettingPresenterProtocol {
       self.wireframe.navigate(to: .editAccount)
       
     case .maxPosts:
-      print("maxPosts")
       self.presentInputAlert()
+      
     case .delete:
       self.interactor.deleteStoredMediaAll()
       

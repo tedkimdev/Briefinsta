@@ -64,7 +64,6 @@ extension AddUserAccountInteractor: AddUserAccountInteractorInputProtocol {
     self.instagramService.user(with: username) { result in
       switch result {
       case .success(let media):
-        print(media)
         if media.count > 0  {
           self.settings.setUserAccount(value: username)
           self.localCountLimit = self.settings.getMaxColletingPosts() ?? 1000
