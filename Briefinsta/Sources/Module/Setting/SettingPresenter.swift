@@ -126,19 +126,19 @@ extension SettingPresenter: SettingPresenterProtocol {
     switch self.sections[indexPath.section].items[indexPath.row] {
     case .account:
       let username = self.username.isEmpty ? "User Account" : self.username
-      cell.configure(text: username)
+      cell.configure(text: username, detail: nil)
       
     case .version(let text, _):
-      cell.configure(text: text)
+      cell.configure(text: text, detail: nil)
       
     case .icons(let text):
-      cell.configure(text: text)
+      cell.configure(text: text, detail: "icons8.com")
       
     case .openSource(let text):
-      cell.configure(text: text)
+      cell.configure(text: text, detail: nil)
       
     case .delete(let text):
-      cell.configure(text: text)
+      cell.configure(text: text, detail: nil)
       
 //    case .github():
 //      cell.configure(text: text)
@@ -146,10 +146,10 @@ extension SettingPresenter: SettingPresenterProtocol {
     case .maxPosts:
       let formatter = NumberFormatter()
       formatter.numberStyle = .decimal
-      cell.configure(text: formatter.string(from: NSNumber(integerLiteral: self.maxMediaNumber)) ?? "1,000")
+      cell.configure(text: formatter.string(from: NSNumber(integerLiteral: self.maxMediaNumber)) ?? "1,000", detail: nil)
       
     default:
-      cell.configure(text: "")
+      cell.configure(text: "", detail: nil)
     }
   }
   
