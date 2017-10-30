@@ -27,6 +27,8 @@ final class TopMostViewController: BaseViewController {
   // MARK: Properties
   
   var presenter: TopMostPresenterProtocol!
+  var cellContentOffset = [Int: CGPoint]()
+  var cellContentSize = [Int: CGSize]()
   
   
   // MARK: UI
@@ -103,7 +105,8 @@ extension TopMostViewController: TopMostViewProtocol {
 extension TopMostViewController: UITableViewDelegate {
   
   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    return CGFloat(250.0)
+    let cellWidth = (self.view.bounds.width - Metric.instagramMediaCellSpacing - 32.0) / 2
+    return TopMostViewCell.height() + InstagramMediumCell.height() + cellWidth
   }
   
 }
@@ -125,7 +128,13 @@ extension TopMostViewController: UITableViewDataSource {
     let cell = tableView.dequeueReusableCell(withIdentifier: "TopMostViewCell", for: indexPath) as! TopMostViewCell
     self.presenter.configureCell(cell, for: indexPath)
     cell.setCollectionViewDelegateDataSource(delegate: self, dataSource: self, rowAt: indexPath)
+    cell.collectionView.setContentOffset(self.cellContentOffset[indexPath.row] ?? .zero, animated: false)
     return cell
+  }
+  
+  func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    guard let cell = cell as? TopMostViewCell else { return }
+    self.cellContentOffset[indexPath.row] = cell.collectionView.contentOffset
   }
   
 }
@@ -140,8 +149,14 @@ extension TopMostViewController: UICollectionViewDelegateFlowLayout {
   }
   
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    let cellWidth = (self.view.bounds.width - Metric.instagramMediaCellSpacing * 2) / 3
-    return CGSize(width: cellWidth, height: cellWidth + Metric.instagramMediaCellLabelHeight * 2)
+    
+    if self.presenter.isEmpty(in: collectionView.tag, at: indexPath) {
+      let cellWidth = (self.view.bounds.width - Metric.instagramMediaCellSpacing - 32.0) / 2
+      return CGSize(width: cellWidth, height: cellWidth + Metric.instagramMediaCellLabelHeight * 2)
+    } else {
+      return CGSize(width: 0, height: 0)
+    }
+    
   }
   
 }
