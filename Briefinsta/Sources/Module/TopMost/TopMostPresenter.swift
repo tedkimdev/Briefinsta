@@ -21,6 +21,8 @@ protocol TopMostPresenterProtocol: class, BasePresenterProtocol {
   // CollectionView
   func numberOfItemsInSection(in section: Int) -> Int
   func configureMediumCell(_ cell: InstagramMediumCellType, in section: Int, for indexPath: IndexPath)
+//  func cellSize(sizeForItemAt indexPath: IndexPath) -> CGSize
+  func isEmpty(in section: Int, at indexPath: IndexPath) -> Bool
 }
 
 
@@ -99,8 +101,16 @@ extension TopMostPresenter: TopMostPresenterProtocol {
   }
   
   func configureMediumCell(_ cell: InstagramMediumCellType, in section: Int, for indexPath: IndexPath) {
-    guard let sections = self.sections else { return }
+    guard let sections = self.sections,
+      sections[section].items.count > indexPath.row else { return }
+//    print(sections[section].items.count, indexPath.row)
     cell.configure(viewModel: sections[section].items[indexPath.row])
+  }
+  
+  func isEmpty(in section: Int, at indexPath: IndexPath) -> Bool {
+    guard let sections = self.sections,
+      sections[section].items.count > indexPath.row else { return false }
+    return true
   }
   
 }

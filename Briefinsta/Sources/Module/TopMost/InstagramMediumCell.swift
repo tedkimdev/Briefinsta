@@ -55,6 +55,7 @@ final class InstagramMediumCell: UICollectionViewCell, InstagramMediumCellType {
     image.contentMode = .scaleAspectFill
     image.layer.cornerRadius = 8
     image.layer.masksToBounds = true
+    image.isHidden = true
     return image
   }()
   
@@ -64,6 +65,7 @@ final class InstagramMediumCell: UICollectionViewCell, InstagramMediumCellType {
     image.layer.masksToBounds = true
     image.tintColor = .red
     image.image = UIImage(named: "icon-heart")?.withRenderingMode(.alwaysTemplate)
+    image.isHidden = true
     return image
   }()
   
@@ -73,6 +75,7 @@ final class InstagramMediumCell: UICollectionViewCell, InstagramMediumCellType {
     image.layer.masksToBounds = true
     image.tintColor = .bi_charcoal
     image.image = UIImage(named: "icon-comment")?.withRenderingMode(.alwaysTemplate)
+    image.isHidden = true
     return image
   }()
   
@@ -95,32 +98,16 @@ final class InstagramMediumCell: UICollectionViewCell, InstagramMediumCellType {
     self.addSubview(self.likeLabel)
     self.addSubview(self.commentImageView)
     self.addSubview(self.commentLabel)
-    
-    self.imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width)
-    
-    self.likeImageView.frame = CGRect(x: 0,
-                                      y: self.frame.width + Metric.likeImageViewTop,
-                                      width: Metric.likeImageViewWidthHeight,
-                                      height: Metric.likeImageViewWidthHeight)
-    
-    self.likeLabel.frame = CGRect(x: self.likeImageView.right + Metric.likeLabelLeft,
-                                   y: self.likeImageView.top,
-                                   width: self.frame.width - self.likeImageView.right - Metric.likeLabelLeft * 2,
-                                   height: Metric.likeLabelHeight)
-    
-    self.commentImageView.frame = CGRect(x: 0,
-                                         y: self.likeImageView.bottom + Metric.commentImageViewTop,
-                                         width: Metric.commentImageViewWidthHeight,
-                                         height: Metric.commentImageViewWidthHeight)
-    
-    self.commentLabel.frame = CGRect(x: self.commentImageView.right + Metric.commentLabelLeft,
-                                      y: self.commentImageView.top,
-                                      width: self.frame.width - self.commentImageView.right - Metric.commentLabelLeft * 2,
-                                      height: Metric.commentImageViewWidthHeight)
   }
   
   override func prepareForReuse() {
-    self.imageView.image = nil
+    self.imageView.image = UIImage(named: "placeholder")
+    self.commentLabel.text = ""
+    self.likeLabel.text = ""
+    
+    self.imageView.isHidden = true
+    self.likeImageView.isHidden = true
+    self.commentImageView.isHidden = true
   }
   
   
@@ -135,6 +122,46 @@ final class InstagramMediumCell: UICollectionViewCell, InstagramMediumCellType {
     
     self.commentLabel.text = "\(viewModel.comments)"
     self.likeLabel.text = "\(viewModel.likes)"
+    
+    self.imageView.isHidden = false
+    self.likeImageView.isHidden = false
+    self.commentImageView.isHidden = false
+    
+    self.layoutIfNeeded()
+  }
+  
+  
+  // MARK: Layout
+  
+  override func layoutSubviews() {
+    self.imageView.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.width)
+
+    self.likeImageView.frame = CGRect(x: 0,
+                                      y: self.frame.width + Metric.likeImageViewTop,
+                                      width: Metric.likeImageViewWidthHeight,
+                                      height: Metric.likeImageViewWidthHeight)
+
+    self.likeLabel.frame = CGRect(x: self.likeImageView.right + Metric.likeLabelLeft,
+                                  y: self.likeImageView.top,
+                                  width: self.frame.width - self.likeImageView.right - Metric.likeLabelLeft * 2,
+                                  height: Metric.likeLabelHeight)
+    
+    self.commentImageView.frame = CGRect(x: 0,
+                                         y: self.likeImageView.bottom + Metric.commentImageViewTop,
+                                         width: Metric.commentImageViewWidthHeight,
+                                         height: Metric.commentImageViewWidthHeight)
+    
+    self.commentLabel.frame = CGRect(x: self.commentImageView.right + Metric.commentLabelLeft,
+                                     y: self.commentImageView.top,
+                                     width: self.frame.width - self.commentImageView.right - Metric.commentLabelLeft * 2,
+                                     height: Metric.commentImageViewWidthHeight)
+  }
+  
+  class func height() -> CGFloat {
+    var height: CGFloat = 0.0
+    height += Metric.likeImageViewTop + Metric.likeImageViewWidthHeight
+    height += Metric.commentImageViewTop + Metric.commentImageViewWidthHeight
+    return height
   }
   
 }

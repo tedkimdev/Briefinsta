@@ -10,6 +10,7 @@ import UIKit
 
 protocol TopMostViewCellType {
   func configure(title: String)
+  func setContentOffset(contentOffset: CGPoint, animated: Bool)
 }
 
 
@@ -18,15 +19,15 @@ final class TopMostViewCell: UITableViewCell, TopMostViewCellType {
   // MARK: Constants
   
   fileprivate struct Metric {
-    static let dividerLineViewTop: CGFloat = 4.0
+    static let dividerLineViewTop: CGFloat = 8.0
     static let dividerLineViewLeftRight: CGFloat = 16.0
     static let dividerLineViewHeight: CGFloat = 1 / UIScreen.main.scale
     
-    static let titleLabelTop: CGFloat = 8.0
+    static let titleLabelTop: CGFloat = 12.0
     static let titleLabelLeftRight: CGFloat = 16.0
     static let titleLabelHeight: CGFloat = Font.titleLabel.lineHeight
     
-    static let collectionViewTop: CGFloat = 0.0
+    static let collectionViewTopBottom: CGFloat = 8.0
     static let collectionViewLeftRight: CGFloat = 16.0
   }
   
@@ -80,9 +81,9 @@ final class TopMostViewCell: UITableViewCell, TopMostViewCellType {
     self.collectionView.register(InstagramMediumCell.self, forCellWithReuseIdentifier: "InstagramMediumCell")
     
     self.contentView.backgroundColor = UIColor.clear
-    self.addSubview(self.collectionView)
     self.addSubview(self.dividerLineView)
     self.addSubview(self.titleLabel)
+    self.addSubview(self.collectionView)
     
     self.dividerLineView.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(Metric.dividerLineViewTop)
@@ -97,10 +98,10 @@ final class TopMostViewCell: UITableViewCell, TopMostViewCellType {
       make.height.equalTo(Metric.titleLabelHeight)
     }
     self.collectionView.snp.makeConstraints { make in
-      make.top.equalTo(self.titleLabel.snp.bottom).offset(Metric.collectionViewTop)
+      make.top.equalTo(self.titleLabel.snp.bottom).offset(Metric.collectionViewTopBottom)
       make.left.equalToSuperview().offset(Metric.collectionViewLeftRight)
       make.right.equalToSuperview().offset(-Metric.collectionViewLeftRight)
-      make.bottom.equalToSuperview()
+      make.bottom.equalToSuperview().offset(-Metric.collectionViewTopBottom)
     }
   }
   
@@ -109,6 +110,19 @@ final class TopMostViewCell: UITableViewCell, TopMostViewCellType {
   
   func configure(title: String) {
     self.titleLabel.text = title
+  }
+  
+  override func prepareForReuse() {
+    self.collectionView.contentOffset = .zero
+//    self.collectionView.contentSize = CGSize(width: 400.0, height: 216.5)
+  }
+  
+  class func height() -> CGFloat {
+    var height: CGFloat = 0.0
+    height += Metric.dividerLineViewTop + Metric.titleLabelTop + Metric.collectionViewTopBottom * 2
+    height += Font.titleLabel.lineHeight
+    height += Metric.dividerLineViewHeight
+    return height
   }
   
 }
@@ -128,6 +142,10 @@ extension TopMostViewCell {
     self.collectionView.tag = indexPath.row
     
     self.collectionView.reloadData()
+  }
+  
+  func setContentOffset(contentOffset: CGPoint, animated: Bool) {
+    self.collectionView.setContentOffset(contentOffset, animated: animated)
   }
   
 }
