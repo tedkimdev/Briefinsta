@@ -8,7 +8,12 @@
 
 import UIKit
 
-final class InstagramMediumCell: UICollectionViewCell {
+protocol InstagramMediumCellType {
+  func configure(viewModel: InstagramMediaViewModel)
+}
+
+
+final class InstagramMediumCell: UICollectionViewCell, InstagramMediumCellType {
   
   // MARK: Constants
   

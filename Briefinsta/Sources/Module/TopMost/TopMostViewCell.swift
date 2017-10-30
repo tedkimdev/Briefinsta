@@ -8,12 +8,18 @@
 
 import UIKit
 
-final class TopMostViewCell: UITableViewCell {
+protocol TopMostViewCellType {
+  func configure(title: String)
+}
+
+
+final class TopMostViewCell: UITableViewCell, TopMostViewCellType {
   
   // MARK: Constants
   
   fileprivate struct Metric {
     static let dividerLineViewTop: CGFloat = 4.0
+    static let dividerLineViewLeftRight: CGFloat = 16.0
     static let dividerLineViewHeight: CGFloat = 1 / UIScreen.main.scale
     
     static let titleLabelTop: CGFloat = 8.0
@@ -80,8 +86,8 @@ final class TopMostViewCell: UITableViewCell {
     
     self.dividerLineView.snp.makeConstraints { make in
       make.top.equalToSuperview().offset(Metric.dividerLineViewTop)
-      make.left.equalToSuperview()
-      make.right.equalToSuperview()
+      make.left.equalToSuperview().offset(Metric.dividerLineViewLeftRight)
+      make.right.equalToSuperview().offset(-Metric.dividerLineViewLeftRight)
       make.height.equalTo(Metric.dividerLineViewHeight)
     }
     self.titleLabel.snp.makeConstraints { make in

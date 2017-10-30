@@ -16,11 +16,11 @@ protocol TopMostPresenterProtocol: class, BasePresenterProtocol {
   func numberOfSections() -> Int
   func numberOfRows(in section: Int) -> Int
   func didSelectTableViewRowAt(indexPath: IndexPath)
-  func configureCell(_ cell: TopMostViewCell, for indexPath: IndexPath)
+  func configureCell(_ cell: TopMostViewCellType, for indexPath: IndexPath)
   
   // CollectionView
   func numberOfItemsInSection(in section: Int) -> Int
-  func configureMediumCell(_ cell: InstagramMediumCell, in section: Int, for indexPath: IndexPath)
+  func configureMediumCell(_ cell: InstagramMediumCellType, in section: Int, for indexPath: IndexPath)
 }
 
 
@@ -93,12 +93,12 @@ extension TopMostPresenter: TopMostPresenterProtocol {
     
   }
   
-  func configureCell(_ cell: TopMostViewCell, for indexPath: IndexPath) {
+  func configureCell(_ cell: TopMostViewCellType, for indexPath: IndexPath) {
     guard let sections = self.sections else { return }
     cell.configure(title: sections[indexPath.row].title)
   }
   
-  func configureMediumCell(_ cell: InstagramMediumCell, in section: Int, for indexPath: IndexPath) {
+  func configureMediumCell(_ cell: InstagramMediumCellType, in section: Int, for indexPath: IndexPath) {
     guard let sections = self.sections else { return }
     cell.configure(viewModel: sections[section].items[indexPath.row])
   }
