@@ -106,7 +106,7 @@ extension AddUserAccountPresenter: AddUserAccountPresenterProtocol {
   func configureHeader(_ cell: AddUserAccountHeaderFooterType, in section: Int) {
     switch self.sections[section] {
     case .editAccount:
-      cell.configure(text: "Briefinsta is only available for public instagram account.")
+      cell.configure(text: "Analaysis is only available for a public instagram account.")
     }
   }
   

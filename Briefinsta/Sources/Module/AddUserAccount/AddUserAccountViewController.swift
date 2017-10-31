@@ -51,11 +51,22 @@ final class AddUserAccountViewController: BaseViewController {
     
     // TODO: becomeFirstResponder()
     self.presenter.onViewDidLoad()
+    
+    NotificationCenter.default.addObserver(
+      self,
+      selector: #selector(keyboardWillChangeFrame),
+      name: .UIKeyboardWillChangeFrame,
+      object: nil
+    )
   }
 
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     self.tabBarController?.tabBar.isHidden = true
+  }
+  
+  deinit {
+    NotificationCenter.default.removeObserver(self)
   }
   
   override func setupUI() {
@@ -93,6 +104,28 @@ final class AddUserAccountViewController: BaseViewController {
   @objc fileprivate func cancelButtonDidTap(_ sender: Any) {
     self.presenter.cancelButtonDidTap()
   }
+  
+  
+  // MARK: Notifications
+  
+  @objc fileprivate func keyboardWillChangeFrame(notification: Notification) {
+    guard let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect,
+      let duration =  notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval
+      else { return }
+    
+    let keyboardVisibleHeight = UIScreen.main.bounds.height - keyboardFrame.origin.y
+    
+    UIView.animate(withDuration: duration) {
+      self.tableView.contentInset.bottom = keyboardVisibleHeight
+      self.tableView.scrollIndicatorInsets.bottom = keyboardVisibleHeight
+      
+      if keyboardVisibleHeight > 0 {
+        let indexPath = IndexPath(row: 0, section: 0)
+        self.tableView.scrollToRow(at: indexPath, at: .none, animated: false)
+      }
+    }
+  }
+  
 }
 
 
