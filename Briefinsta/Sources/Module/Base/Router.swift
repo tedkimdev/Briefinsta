@@ -14,6 +14,7 @@ enum Router {
   }
   
   enum Setting {
+    case version
     case icons8(url: URL)
     case openSourceLicenses
     case editAccount

@@ -76,6 +76,10 @@ final class SettingWireframe: BaseWireframe {
     self.show(alertController, with: .present(from: self.view), animated: true)
   }
   
+  private func showVersionView() {
+    let versionView = VersionWireframe.createModule()
+    self.show(versionView, with: .push)
+  }
 }
 
 
@@ -85,6 +89,8 @@ extension SettingWireframe: SettingWireframeProtocol {
   
   func navigate(to route: Router.Setting) {
     switch route {
+    case .version:
+      self.showVersionView()
     case let .icons8(url: url):
       self.showIcon8(by: url)
     case .openSourceLicenses:

@@ -10,7 +10,7 @@ import Foundation
 
 import Moya
 
-enum Instagram {
+enum InstagramAPI {
   case user(String)
   case media(String, String?)
 }
@@ -18,7 +18,7 @@ enum Instagram {
 
 // MARK: - TargetType Protocol Implementation
 
-extension Instagram: TargetType {
+extension InstagramAPI: TargetType {
   var baseURL: URL { return URL(string: "https://www.instagram.com")! }
   
   var path: String {
