@@ -12,9 +12,8 @@ protocol AppStoreServiceType {
   func latestVersion(completion: @escaping (Result<String>) -> ())
 }
 
+
 final class AppStoreService: AppStoreServiceType {
-//  fileprivate let networking = Networking<AppStoreAPI>()
-  
   
   private let provider : MoyaProvider<AppStoreAPI>
   
