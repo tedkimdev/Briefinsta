@@ -16,10 +16,10 @@ protocol InstagramServiceType {
 
 final class InstagramService: InstagramServiceType {
   
-  private let provider : MoyaProvider<Instagram>
+  private let provider : MoyaProvider<InstagramAPI>
   
   init(
-    provider: MoyaProvider<Instagram> = MoyaProvider<Instagram>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    provider: MoyaProvider<InstagramAPI> = MoyaProvider<InstagramAPI>(plugins: [NetworkLoggerPlugin(verbose: true)])
   ) {
     self.provider = provider
   }

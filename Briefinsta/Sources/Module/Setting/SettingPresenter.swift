@@ -97,6 +97,10 @@ extension SettingPresenter: SettingPresenterProtocol {
   
   func didSelectTableViewRowAt(indexPath: IndexPath) {
     switch self.sections[indexPath.section].items[indexPath.row] {
+      
+    case .version:
+      self.wireframe.navigate(to: .version)
+      
     case .icons:
       guard let url = URL(string: "https://icons8.com") else { return }
       self.wireframe.navigate(to: .icons8(url: url))
@@ -124,12 +128,13 @@ extension SettingPresenter: SettingPresenterProtocol {
   
   func configureCell(_ cell: SettingViewTableCellType, for indexPath: IndexPath) {
     switch self.sections[indexPath.section].items[indexPath.row] {
+    case .version:
+      let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
+      cell.configure(text: "Version", detail: appVersion)
+      
     case .account:
       let username = self.username.isEmpty ? "User Account" : self.username
       cell.configure(text: username, detail: nil)
-      
-    case .version(let text, _):
-      cell.configure(text: text, detail: nil)
       
     case .icons(let text):
       cell.configure(text: text, detail: "icons8.com")
