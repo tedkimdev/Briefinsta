@@ -38,7 +38,7 @@ final class TopMostPresenter {
   
   // MARK: Properties
   
-  weak var view: TopMostViewProtocol!
+  weak var view: TopMostViewProtocol?
   private let wireframe: TopMostWireframeProtocol
   private let interactor: TopMostInteractorInputProtocol
   
@@ -124,20 +124,20 @@ extension TopMostPresenter: TopMostInteractorOutputProtocol {
     let emptyItems = [InstagramMediaViewModel.sample(), InstagramMediaViewModel.sample(), InstagramMediaViewModel.sample()]
     self.sections = [
       TopMostViewSection(title: "Best Posts", items: emptyItems),
-      TopMostViewSection(title: "Most Comment Posts", items: emptyItems),
-      TopMostViewSection(title: "Most Like Posts", items: emptyItems),
+      TopMostViewSection(title: "Most Commented Posts", items: emptyItems),
+      TopMostViewSection(title: "Most Liked Posts", items: emptyItems),
       TopMostViewSection(title: "Recent Posts", items: emptyItems),
     ]
     
     DispatchQueue.main.async {
-      self.view.displayLoadedMedia()
+      self.view?.displayLoadedMedia()
     }
   }
   
   func presentLoadedSection(media: [TopMostViewSection]) {
     self.sections = media
     DispatchQueue.main.async {
-      self.view.displayLoadedMedia()
+      self.view?.displayLoadedMedia()
     }
   }
   

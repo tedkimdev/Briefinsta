@@ -40,7 +40,7 @@ extension VersionInteractor: VersionInteractorInputProtocol {
     self.appStoreService.latestVersion { result in
       switch result {
       case .success(let value):
-        self.presenter.presentCurrentVersion(version: value)
+        self.presenter.presentLastestVersion(version: value)
         
       case .failure(let error):
         print(error)

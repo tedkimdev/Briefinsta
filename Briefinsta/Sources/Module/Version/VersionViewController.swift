@@ -10,7 +10,7 @@ import UIKit
 
 protocol VersionViewProtocol: class {
   // Presenter -> View
-  func displayCurrentVersion(_ value: String)
+  func displayLastestVersion(_ value: String)
 }
 
 
@@ -93,7 +93,7 @@ final class VersionViewController: BaseViewController {
     self.view.addSubview(self.lastestVersionLabel)
     
     self.iconView.snp.makeConstraints { make in
-      make.top.equalToSuperview().offset(Metric.iconViewTop)
+      make.centerY.equalToSuperview()
       make.centerX.equalToSuperview()
       make.width.height.equalTo(Metric.iconViewSize)
     }
@@ -119,7 +119,7 @@ final class VersionViewController: BaseViewController {
 
 extension VersionViewController: VersionViewProtocol {
   
-  func displayCurrentVersion(_ value: String) {
+  func displayLastestVersion(_ value: String) {
     DispatchQueue.main.async {
       self.lastestVersionLabel.text?.append(contentsOf: value)
     }

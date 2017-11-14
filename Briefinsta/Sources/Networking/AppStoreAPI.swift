@@ -19,7 +19,7 @@ enum AppStoreAPI {
 
 extension AppStoreAPI: TargetType {
   
-  var baseURL: URL { return URL(string: "https://itunes.apple.com")! }
+  var baseURL: URL { return URL(string: "https://itunes.apple.com/kr")! }
   
   var path: String {
     switch self {

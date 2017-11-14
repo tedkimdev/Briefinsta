@@ -51,8 +51,8 @@ final class TopMostInteractor {
       self.presenter.presentLoadedSection(media:
         [
           TopMostViewSection(title: "Best Posts", items: bestEngagement.map { InstagramMediaViewModel($0) }),
-          TopMostViewSection(title: "Most Comment Posts", items: mostCommented.map { InstagramMediaViewModel($0) }),
-          TopMostViewSection(title: "Most Like Posts", items: mostLiked.map { InstagramMediaViewModel($0) }),
+          TopMostViewSection(title: "Most Commented Posts", items: mostCommented.map { InstagramMediaViewModel($0) }),
+          TopMostViewSection(title: "Most Liked Posts", items: mostLiked.map { InstagramMediaViewModel($0) }),
           TopMostViewSection(title: "Recent Posts", items: recentPosted.map { InstagramMediaViewModel($0) }),
         ]
       )

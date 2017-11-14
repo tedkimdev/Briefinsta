@@ -15,7 +15,7 @@ protocol VersionPresenterProtocol: class, BasePresenterProtocol {
 
 protocol VersionInteractorOutputProtocol: class {
   // Interactor -> Presenter
-  func presentCurrentVersion(version: String)
+  func presentLastestVersion(version: String)
 }
 
 
@@ -55,8 +55,8 @@ extension VersionPresenter: VersionPresenterProtocol {
 
 extension VersionPresenter: VersionInteractorOutputProtocol {
   
-  func presentCurrentVersion(version: String) {
-    self.view.displayCurrentVersion(version)
+  func presentLastestVersion(version: String) {
+    self.view.displayLastestVersion(version)
   }
   
 }
