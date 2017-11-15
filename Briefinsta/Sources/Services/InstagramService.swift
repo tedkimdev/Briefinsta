@@ -9,8 +9,8 @@
 import Moya
 
 protocol InstagramServiceType {
-  func user(with username: String, completion: @escaping (Result<[InstagramMedium]>) -> () )
-  func media(with username: String, offset: String?, completion: @escaping (Result<InstagramMedia>) -> () )
+  func user(with username: String, completion: @escaping (Result<[Medium]>) -> () )
+  func media(with username: String, offset: String?, completion: @escaping (Result<Media>) -> () )
 }
 
 
@@ -24,33 +24,34 @@ final class InstagramService: InstagramServiceType {
     self.provider = provider
   }
   
-  func user(with username: String, completion: @escaping (Result<[InstagramMedium]>) -> () ) {
+  func user(with username: String, completion: @escaping (Result<[Medium]>) -> () ) {
     provider.request(.user(username)) { result in
       switch result {
       case let .success(response):
         let data = response.data
         do {
-          let instagramMedia = try JSONDecoder().decode(InstagramMedia.self, from: data)
-          completion(Result.success(instagramMedia.items))
+          let apiResult = try JSONDecoder().decode(InstagramMediaAPIResult.self, from: data)
+          let media = apiResult.user.media.items
+          completion(Result.success(media))
         }
         catch {
           completion(Result.failure(error))
         }
-
       case let .failure(error):
         completion(Result.failure(error))
       }
     }
   }
   
-  func media(with username: String, offset: String?, completion: @escaping (Result<InstagramMedia>) -> () ) {
+  func media(with username: String, offset: String?, completion: @escaping (Result<Media>) -> () ) {
     provider.request(.media(username, offset)) { result in
       switch result {
       case let .success(response):
         let data = response.data
         do {
-          let instagramMedia = try JSONDecoder().decode(InstagramMedia.self, from: data)
-          completion(Result.success(instagramMedia))
+          let apiResult = try JSONDecoder().decode(InstagramMediaAPIResult.self, from: data)
+          let media = apiResult.user.media
+          completion(Result.success(media))
         }
         catch {
           completion(Result.failure(error))

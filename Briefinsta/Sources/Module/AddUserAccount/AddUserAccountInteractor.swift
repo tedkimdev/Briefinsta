@@ -123,7 +123,7 @@ extension AddUserAccountInteractor {
   }
   
   /// Init worker and start work
-  fileprivate func initAddUserAccountInteractorWorker(with media: InstagramMedia) {
+  fileprivate func initAddUserAccountInteractorWorker(with media: Media) {
     self.worker = AddUserAccountInteractorWorker(media: media, dataService: self.dataService)
     self.worker?.iteractor = self
     DispatchQueue.global(qos: .background).async {
