@@ -25,12 +25,12 @@ final class AddUserAccountInteractorWorker {
   
   weak var iteractor: AddUserAccountInteractorWorkerInputProtocol?
   private let dataService: DataServiceType
-  var media: InstagramMedia
+  var media: Media
   
   
   // MARK: Worker Life Cycle
   
-  init(media: InstagramMedia, dataService: DataServiceType) {
+  init(media: Media, dataService: DataServiceType) {
     self.media = media
     self.dataService = dataService
   }

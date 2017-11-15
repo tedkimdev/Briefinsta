@@ -20,13 +20,12 @@ enum InstagramAPI {
 
 extension InstagramAPI: TargetType {
   var baseURL: URL { return URL(string: "https://www.instagram.com")! }
-  
   var path: String {
     switch self {
     case .user(let username):
-      return "/\(username)/media"
+      return "/\(username)"
     case .media(let username, _):
-      return "/\(username)/media/"
+      return "/\(username)"
     }
   }
   
@@ -42,18 +41,17 @@ extension InstagramAPI: TargetType {
   var parameters: [String: Any] {
     switch self {
     case let .media(_, offset):
-      return ["max_id": offset ?? ""]
+      return ["__a": 1, "max_id": offset ?? ""]
     default:
-      return [:]
+      return ["__a": 1]
     }
   }
   
   var task: Task {
     switch self {
     case .user:
-      return .requestPlain
-    case .media(_, let offset):
-      guard offset != nil else { return .requestPlain }
+      return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
+    case .media(_, _):
       return .requestParameters(parameters: parameters, encoding: URLEncoding.default)
     }
   }

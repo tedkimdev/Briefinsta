@@ -19,7 +19,7 @@ struct InstagramMediaViewModel {
   let comments: String
   let imageURL: String
   
-  init(_ medium: InstagramMedium) {
+  init(_ medium: Medium) {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal
     

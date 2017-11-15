@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4A4C7D80625C8DC51700D071 /* Pods_BriefinstaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 97D4891AA1E47CF27AA0E0D8 /* Pods_BriefinstaTests.framework */; };
 		AB18D24F197EA73285DC315B /* Pods_Briefinsta.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 39B86ADEFADCEDDD34551E90 /* Pods_Briefinsta.framework */; };
+		BD0C32381FBB8B960045AA12 /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD0C32371FBB8B960045AA12 /* Media.swift */; };
 		BD2F8B181FA51BDF00D1B793 /* TopMostViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD2F8B171FA51BDF00D1B793 /* TopMostViewCell.swift */; };
 		BD440E7D1FA29F4800AB7E34 /* AddUserAccountSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD440E7C1FA29F4800AB7E34 /* AddUserAccountSection.swift */; };
 		BD4846601FAA5FC40051DB2A /* AppStoreAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD48465F1FAA5FC40051DB2A /* AppStoreAPI.swift */; };
@@ -47,7 +48,6 @@
 		BDD201C01FA126FB00C0A624 /* InstagramService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDD201BF1FA126FB00C0A624 /* InstagramService.swift */; };
 		BDE01FE11FA2D67300E39414 /* AddUserAccountInteractorWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE01FE01FA2D67200E39414 /* AddUserAccountInteractorWorker.swift */; };
 		BDE01FE31FA2E41200E39414 /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE01FE21FA2E41200E39414 /* DataService.swift */; };
-		BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D591FA18199002C7C50 /* InstagramMedia.swift */; };
 		BDE57D5C1FA19088002C7C50 /* ServiceResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */; };
 		BDE57D5E1FA261E8002C7C50 /* SettingViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D5D1FA261E8002C7C50 /* SettingViewSection.swift */; };
 		BDE57D611FA26795002C7C50 /* SettingViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDE57D601FA26795002C7C50 /* SettingViewHeader.swift */; };
@@ -88,6 +88,7 @@
 		8D1DC5982BE83CD84D00FD50 /* Pods-BriefinstaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BriefinstaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BriefinstaTests/Pods-BriefinstaTests.release.xcconfig"; sourceTree = "<group>"; };
 		97D4891AA1E47CF27AA0E0D8 /* Pods_BriefinstaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BriefinstaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9C8A181F4428111D1B7C29D1 /* Pods-BriefinstaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BriefinstaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BriefinstaUITests/Pods-BriefinstaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		BD0C32371FBB8B960045AA12 /* Media.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		BD2F8B171FA51BDF00D1B793 /* TopMostViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMostViewCell.swift; sourceTree = "<group>"; };
 		BD440E7C1FA29F4800AB7E34 /* AddUserAccountSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAccountSection.swift; sourceTree = "<group>"; };
 		BD48465F1FAA5FC40051DB2A /* AppStoreAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppStoreAPI.swift; sourceTree = "<group>"; };
@@ -132,7 +133,6 @@
 		BDD201BF1FA126FB00C0A624 /* InstagramService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramService.swift; sourceTree = "<group>"; };
 		BDE01FE01FA2D67200E39414 /* AddUserAccountInteractorWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddUserAccountInteractorWorker.swift; sourceTree = "<group>"; };
 		BDE01FE21FA2E41200E39414 /* DataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
-		BDE57D591FA18199002C7C50 /* InstagramMedia.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstagramMedia.swift; sourceTree = "<group>"; };
 		BDE57D5B1FA19088002C7C50 /* ServiceResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceResult.swift; sourceTree = "<group>"; };
 		BDE57D5D1FA261E8002C7C50 /* SettingViewSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewSection.swift; sourceTree = "<group>"; };
 		BDE57D601FA26795002C7C50 /* SettingViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewHeader.swift; sourceTree = "<group>"; };
@@ -307,8 +307,8 @@
 		BDCE25C81FA0287F00ED091F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				BDE57D591FA18199002C7C50 /* InstagramMedia.swift */,
 				BD65CB241FA3E07B00D9F04B /* InstagramMediumEntity.swift */,
+				BD0C32371FBB8B960045AA12 /* Media.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -731,6 +731,7 @@
 			files = (
 				BDBDC8BD1FA29DB6008374AA /* AddUserAccountCell.swift in Sources */,
 				BD75253B1FA029FF00403796 /* BasePresenter.swift in Sources */,
+				BD0C32381FBB8B960045AA12 /* Media.swift in Sources */,
 				BDE57D5E1FA261E8002C7C50 /* SettingViewSection.swift in Sources */,
 				BD7525531FA04C9800403796 /* TransitionType.swift in Sources */,
 				BDF968231FA1567700CCF2FE /* Settings.swift in Sources */,
@@ -764,7 +765,6 @@
 				BDE01FE11FA2D67300E39414 /* AddUserAccountInteractorWorker.swift in Sources */,
 				BDD201BA1FA068C300C0A624 /* SettingPresenter.swift in Sources */,
 				BDD201C01FA126FB00C0A624 /* InstagramService.swift in Sources */,
-				BDE57D5A1FA18199002C7C50 /* InstagramMedia.swift in Sources */,
 				BDE903581FA475E5009205F3 /* TopMostInteractor.swift in Sources */,
 				BD7525541FA04C9800403796 /* BaseWireframe.swift in Sources */,
 				BD2F8B181FA51BDF00D1B793 /* TopMostViewCell.swift in Sources */,
